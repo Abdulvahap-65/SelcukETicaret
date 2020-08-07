@@ -17,7 +17,11 @@ namespace SelcukETicaret.Controllers
         // GET: i
         public ActionResult Index()
         {
-            return View();
+            var viewModel = new Models.i.IndexModel()
+            {
+                Products = context.Products.ToList()
+            };
+            return View(viewModel);
         }
     }
 }

@@ -1,0 +1,2 @@
+1-Ürünler sayfası boş geliyor.
+2-Veri tabanı doldurulamadı.
