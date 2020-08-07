@@ -1,2 +1,3 @@
 1-Ürünler sayfası boş geliyor.
 2-Veri tabanı doldurulamadı.
+3-Ders 307.Css ve Layout içindeki kodlar doğru olmasına rağmen dropdown-submenu görünmüyor.(html i  Layout tan partial view e taşıyınca görünüyormuş)
