@@ -7,14 +7,9 @@ using System.Web.Mvc;
 
 namespace SelcukETicaret.Controllers
 {
-    public class iController : Controller
+    public class iController : BaseController
     {
-        ETicaretDBEntities context;
-        public iController()
-        {
-            context = new ETicaretDBEntities();
-            ViewBag.MenuCategories = context.Categories.Where(x=>x.Parent_Id==null).ToList();
-        }
+    
         // GET: i
         public ActionResult Index(int? id=0)
         {
