@@ -1,0 +1,12 @@
+﻿@model UdemyETicaret.Models.i.IndexModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    @foreach (var item in Model.Products)
+    {
+        @Html.Partial("ProductItem", item);
+    }
+
+</div>

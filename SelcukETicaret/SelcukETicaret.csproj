@@ -105,7 +105,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\site.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="DB\ETicaretModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ETicaretModel.edmx</DependentUpon>
@@ -119,6 +119,8 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\account.png" />
+    <Content Include="images\account64.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\fontawesome-webfont.eot" />
@@ -233,6 +235,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account\LoginModels.cs" />
     <Compile Include="Models\Account\RegisterModels.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\i\IndexModel.cs" />
@@ -263,6 +266,7 @@
     <Content Include="Views\Shared\ProductItem.cshtml" />
     <Content Include="Views\Shared\_MenuTopCategory.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

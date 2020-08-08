@@ -24,6 +24,10 @@ namespace SelcukETicaret.Controllers
                 {
                     throw new Exception("Şifreler aynı değildir");
                 }
+                if (context.Members.Any(x => x.Email == user.Member.Email))
+                {
+                    throw new Exception("Zaten bu e-posta adresi kayıtlıdır.");
+                }
                 user.Member.MemberType = DB.MemberTypes.Customer;
                 user.Member.AddedDate = DateTime.Now;
                 context.Members.Add(user.Member);
@@ -37,15 +41,40 @@ namespace SelcukETicaret.Controllers
             }
 
         }
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Login(Models.Account.LoginModels model)
+        {
+            try
+            {
+                var user = context.Members.FirstOrDefault(x => x.Password == model.Member.Password && x.Email == model.Member.Email);
+                if (user != null)
+                {
+                    Session["LogonUser"] = user;
+                    return RedirectToAction("index", "i");
+                }
+                else
+                {
+                    ViewBag.ReError = "Kullanici Bilgileriniz yanlış";
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ReError = ex.Message;
+                return View();
+            }
+        }
         public ActionResult Logout()
         {
-            return View();
+            Session["LogonUser"] = null;
+            return RedirectToAction("Login", "Account");
         }
-        public ActionResult Profile()
+        public ActionResult Profil()
         {
             return View();
         }

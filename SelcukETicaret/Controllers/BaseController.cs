@@ -9,7 +9,7 @@ namespace SelcukETicaret.Controllers
 {
     public class BaseController : Controller
     {
-        protected ETicaretDBEntities context { get;private set; }
+        protected ETicaretDBEntities context { get; private set; }
         public BaseController()
         {
             context = new ETicaretDBEntities();
@@ -17,3 +17,5 @@ namespace SelcukETicaret.Controllers
         }
     }
 }
+
+

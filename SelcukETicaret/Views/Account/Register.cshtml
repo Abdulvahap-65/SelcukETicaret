@@ -29,21 +29,21 @@
                         </center>
                     </div>
                     <div class="form-group">
-                        @Html.TextBoxFor(model => model.Member.Name, new { @class = "form-control", placeholder = "Name", type = "text" })
+                        @Html.TextBoxFor(model => model.Member.Name, new { @class = "form-control", placeholder = "Name", type = "text", required = "required" })
                     </div>
                     <div class="form-group">
-                        @Html.TextBoxFor(model => model.Member.Surname, new { @class = "form-control", placeholder = "Surname", type = "text" })
+                        @Html.TextBoxFor(model => model.Member.Surname, new { @class = "form-control", placeholder = "Surname", type = "text", required = "required" })
                     </div>
                     <div class="form-group">
-                        @Html.TextBoxFor(model => model.Member.Email, new { @class = "form-control", placeholder = "e-mail address", type = "email" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.TextBoxFor(model => model.Member.Password, new { @class = "form-control", placeholder = "password", type = "password" })
+                        @Html.TextBoxFor(model => model.Member.Email, new { @class = "form-control", placeholder = "e-mail address", type = "email", required = "required" })
                     </div>
 
                     <div class="form-group">
-                        @Html.TextBoxFor(model => model.rePassword, new { @class = "form-control", placeholder = "re-password", type = "password" })
+                        @Html.TextBoxFor(model => model.Member.Password, new { @class = "form-control", placeholder = "password", type = "password", required = "required" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(model => model.rePassword, new { @class = "form-control", placeholder = "re-password", type = "password", required = "required" })
                     </div>
 
                 </div>

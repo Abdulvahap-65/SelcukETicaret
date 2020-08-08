@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    SelcukETicaret.DB.Members logonUser = (SelcukETicaret.DB.Members)Session["LogonUser"];
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>@ViewBag.Title-Selcuk ETicaret</title>
@@ -26,7 +30,7 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="menulist">
-            @Html.Partial("_MenuTopCategory",(List<SelcukETicaret.DB.Categories>)ViewBag.MenuCategories)
+                @Html.Partial("_MenuTopCategory", (List<SelcukETicaret.DB.Categories>)ViewBag.MenuCategories)
                 <ul class="nav navbar-nav">
                     <li><a href="#">Link 1</a></li>
                     <li class="dropdown">
@@ -54,22 +58,28 @@
                     <li><a href="#">Link 3</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-user"></span>&nbsp;Kayıt Ol
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-log-in"></span>&nbsp;Giriş
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            @* TODO:Giriş yapan kullanıcı adı yazılacaktır. *@
-                            <span class="glyphicon glyphicon-user"></span>&nbsp;Abdulvahap SELÇUK
-                        </a>
-                    </li>
+                    @if (logonUser == null)
+                    {
+                        <li>
+                            <a href="~/Account/Register">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;Kayıt Ol
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/Account/Login">
+                                <span class="glyphicon glyphicon-log-in"></span>&nbsp;Giriş
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="~/Account/Profi">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;@($"{logonUser.Name} {logonUser.Surname}")
+                            </a>
+                        </li>
+                    }
+
                     <li class="dropdown">
                         <a href="#"
                            class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -82,38 +92,43 @@
 
                         <ul class="dropdown-menu">
                             @*
-                                    TODO:Buraya gerçek ürünler gelecek.
-                                    <li><a href="product.html">Ürün 1</a></li>
-                                <li><a href="product.html">Ürün 2</a></li>
-                                <li><a href="product.html">Ürün 3</a></li>*@
+                    TODO:Buraya gerçek ürünler gelecek.
+                    <li><a href="product.html">Ürün 1</a></li>
+                <li><a href="product.html">Ürün 2</a></li>
+                <li><a href="product.html">Ürün 3</a></li>*@
                             <li class="divider" role="separator"></li>
                             <li><a href="#">Sepete Git</a></li>
                         </ul>
 
                     </li>
-                    <li class="dropdown">
-                        <a href="#"
-                           class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span class="glyphicon glyphicon-envelope"></span>&nbsp;Mesajlar
-                            @* TODO:Mesaj sayısı eklenecek. *@
-                            <span class="badge">0</span>
-                            <span class="caret"></span>
-                        </a>
+                    @if (logonUser != null)
+                    {
+                        <li class="dropdown">
+                            <a href="#"
+                               class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-envelope"></span>&nbsp;Mesajlar
+                                @* TODO:Mesaj sayısı eklenecek. *@
+                                <span class="badge">0</span>
+                                <span class="caret"></span>
+                            </a>
 
-                        <ul class="dropdown-menu">
-                            @*
-                                    TODO:Buraya gerçek mesajlar gelecek.
-                                    <li><a href="message.html">Mesaj 1</a></li>
-                                <li><a href="message.html">Mesaj 2</a></li>*@
-                            <li class="divider" role="separator"></li>
-                            <li><a href="#">Mesajlara Git</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-log-out"></span>&nbsp;Çıkış
-                        </a>
-                    </li>
+                            <ul class="dropdown-menu">
+                                @*
+                        TODO:Buraya gerçek mesajlar gelecek.
+                        <li><a href="message.html">Mesaj 1</a></li>
+                    <li><a href="message.html">Mesaj 2</a></li>*@
+                                <li class="divider" role="separator"></li>
+                                <li><a href="#">Mesajlara Git</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="~/Account/logout">
+                                <span class="glyphicon glyphicon-log-out"></span>&nbsp;Çıkış
+                            </a>
+                        </li>
+                    }
+
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
