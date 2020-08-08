@@ -13,9 +13,10 @@ namespace SelcukETicaret.Controllers
         public iController()
         {
             context = new ETicaretDBEntities();
+            ViewBag.MenuCategories = context.Categories.Where(x=>x.Parent_Id==null).ToList();
         }
         // GET: i
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id=0)
         {
 
             IQueryable<DB.Products> products = context.Products;
