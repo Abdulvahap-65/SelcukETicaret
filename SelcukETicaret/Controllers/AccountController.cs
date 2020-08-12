@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SelcukETicaret.Models.Account;
+
 
 namespace SelcukETicaret.Controllers
 {
@@ -74,9 +76,20 @@ namespace SelcukETicaret.Controllers
             Session["LogonUser"] = null;
             return RedirectToAction("Login", "Account");
         }
-        public ActionResult Profil()
+        [HttpGet]
+        public ActionResult Profil(int id = 0)
         {
-            return View();
+            if (id == 0)
+            {
+                id = base.CurrentUserId();
+            }
+            var user = context.Members.FirstOrDefault(x => x.Id == id);
+            if (user == null) return RedirectToAction("index", "i");
+            ProfilModels model = new ProfilModels()
+            {
+                Members = user
+            };
+            return View(model);
         }
     }
 }

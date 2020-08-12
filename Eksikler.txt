@@ -1,3 +1,6 @@
 1-Ürünler sayfası boş geliyor.
 2-Veri tabanı doldurulamadı.
 3-Ders 307.Css ve Layout içindeki kodlar doğru olmasına rağmen dropdown-submenu görünmüyor.(html i  Layout tan partial view e taşıyınca görünüyormuş)
+4-Ders 315 te Ürünler sayaası boş geliyor.Localhost:60740/i/product ı çalıştırıyorum.Ama sürekli Localhost:60740'a düşüyor.???
+5-Ders 316 da ürün yorumları yapılamsına rağmen hiçbir  veri elde edilemedi.
+6-Ders 317 de dk 12.37 de localhost:60840/i/Product/1  yazıp sonucu dene.Ve karşılaştır.aynı durumu gözlemlemeye çalış.

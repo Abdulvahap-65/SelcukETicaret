@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace SelcukETicaret.Controllers
 {
     public class BaseController : Controller
@@ -14,6 +15,14 @@ namespace SelcukETicaret.Controllers
         {
             context = new ETicaretDBEntities();
             ViewBag.MenuCategories = context.Categories.Where(x => x.Parent_Id == null).ToList();
+        }
+        protected DB.Members CurentUser()
+        {
+            return (DB.Members)Session["LogonUser"];
+        }
+        protected int CurrentUserId()
+        {
+            return ((DB.Members)Session["LogonUser"]).Id;
         }
     }
 }
