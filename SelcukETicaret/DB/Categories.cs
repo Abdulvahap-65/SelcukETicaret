@@ -27,7 +27,7 @@ namespace SelcukETicaret.DB
         public string Description { get; set; }
         public System.DateTime AddedDate { get; set; }
         public Nullable<System.DateTime> ModifedDate { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Categories> Categories1 { get; set; }
         public virtual Categories Categories2 { get; set; }
