@@ -1,7 +1,8 @@
-﻿@model List<SelcukETicaret.Models.i.BasketModels>
+﻿@model List<UdemyETicaret.Models.i.BasketModels>
 @{
     ViewBag.Title = "Sepet";
 }
+
 
 <div class="row">
     <div class="col-md-12">
@@ -12,7 +13,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <small style="color:red;">@TempData["MyError"]</small>
+        <small style="color:red;">@ViewBag.MyError</small>
         <table class="table table-condensed table-striped table-hover text-center">
 
             <thead>
@@ -28,7 +29,7 @@
 
             <tbody>
                 <!--tr*4>(td>lorem2)+(td>{10.00 ₺})+(td>{1})+(td>button.btn>span.glyphicon)-->
-                @foreach (SelcukETicaret.Models.i.BasketModels item in Model)
+                @foreach (UdemyETicaret.Models.i.BasketModels item in Model)
                 {
                     <tr>
                         <td>@item.Product.Name</td>
@@ -52,7 +53,6 @@
                         </td>
                     </tr>
                 }
-
 
             </tbody>
 

@@ -1,18 +1,16 @@
-﻿using SelcukETicaret.DB;
-using SelcukETicaret.Models.i;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SelcukETicaret.Models;
+using UdemyETicaret.DB;
+using UdemyETicaret.Models;
+using UdemyETicaret.Models.i;
 
-
-namespace SelcukETicaret.Controllers
+namespace UdemyETicaret.Controllers
 {
     public class iController : BaseController
     {
-
         // GET: i
         [HttpGet]
         public ActionResult Index(int id = 0)
@@ -36,7 +34,7 @@ namespace SelcukETicaret.Controllers
         {
             var pro = context.Products.FirstOrDefault(x => x.Id == id);
 
-            if (pro == null) return RedirectToAction("Index", "i");
+            if (pro == null) return RedirectToAction("index", "i");
 
             ProductModels model = new ProductModels()
             {
@@ -89,7 +87,7 @@ namespace SelcukETicaret.Controllers
                     }
                     else
                     {
-                        TempData["MyError"]= "Yeterli Stok yok";
+                        ViewBag.MyError = "Yeterli Stok yok";
                     }
                 }
 
@@ -97,7 +95,7 @@ namespace SelcukETicaret.Controllers
             else
             {
                 var pro = context.Products.FirstOrDefault(x => x.Id == id);
-                if (pro != null && pro.IsContinued && pro.UnitsInStock > 0)
+                if (pro != null && pro.IsContinued)
                 {
                     basket.Add(new Models.i.BasketModels()
                     {
@@ -107,7 +105,7 @@ namespace SelcukETicaret.Controllers
                 }
                 else if (pro != null && pro.IsContinued == false)
                 {
-                    TempData["MyError"] = "Bu ürünün satışı durduruldu.";
+                    ViewBag.MyError = "Bu ürünün satışı durduruldu.";
                 }
             }
             basket.RemoveAll(x => x.Count < 1);
@@ -115,8 +113,6 @@ namespace SelcukETicaret.Controllers
 
             return RedirectToAction("Basket", "i");
         }
-
-
         [HttpGet]
         public ActionResult Basket()
         {
@@ -148,10 +144,5 @@ namespace SelcukETicaret.Controllers
             }
             return RedirectToAction("Basket", "i");
         }
-
     }
-
 }
-
-
-
