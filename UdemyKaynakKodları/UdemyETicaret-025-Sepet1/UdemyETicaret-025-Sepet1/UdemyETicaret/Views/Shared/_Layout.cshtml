@@ -1,11 +1,9 @@
 ﻿@{
-    SelcukETicaret.DB.Members logonUser = (SelcukETicaret.DB.Members)Session["LogonUser"];
-}
-
-<!DOCTYPE html>
+    UdemyETicaret.DB.Members logonUser = (UdemyETicaret.DB.Members)Session["LogonUser"];
+}<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>@ViewBag.Title-Selcuk ETicaret</title>
+    <title>@ViewBag.Title - Udemy ETicaret</title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
@@ -13,6 +11,7 @@
     <link href="~/Content/site.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
 </head>
 <body>
 
@@ -26,37 +25,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("index", "i")">Anasayfa</a>
+                <a class="navbar-brand" href="@Url.Action("index","i")">Anasayfa</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="menulist">
-                @Html.Partial("_MenuTopCategory", (List<SelcukETicaret.DB.Categories>)ViewBag.MenuCategories)
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Link 1</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Link 2<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Page 1-1</a></li>
-                            <li class="dropdown-submenu">
-                                <a href="#">Page 1-2</a>
-                                <ul class="dropdown-menu">
-                                    <li><a tabindex="-1" href="#">Second level</a></li>
-                                    <li class="dropdown-submenu">
-                                        <a href="#">Even More..</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">3rd level</a></li>
-                                            <li><a href="#">3rd level</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Second level</a></li>
-                                    <li><a href="#">Second level</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Page 1-3</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Link 3</a></li>
-                </ul>
+                @Html.Partial("_MenuTopCategory", (List<UdemyETicaret.DB.Categories>)ViewBag.MenuCategories)
+
                 <ul class="nav navbar-nav navbar-right">
                     @if (logonUser == null)
                     {
@@ -79,16 +53,14 @@
                             </a>
                         </li>
                     }
+
                     @{
-                        List<SelcukETicaret.Models.i.BasketModels> basket = (List<SelcukETicaret.Models.i.BasketModels>)Session["Basket"];
+                        List<UdemyETicaret.Models.i.BasketModels> basket = (List<UdemyETicaret.Models.i.BasketModels>)Session["Basket"];
                         if (basket == null)
                         {
-
-                            basket = new List<SelcukETicaret.Models.i.BasketModels>();
+                            basket = new List<UdemyETicaret.Models.i.BasketModels>();
                         }
-
                     }
-
                     <li class="dropdown">
                         <a href="#"
                            class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -98,10 +70,9 @@
                             <span class="caret"></span>
                         </a>
 
-
                         <ul class="dropdown-menu">
 
-                            @foreach (SelcukETicaret.Models.i.BasketModels item in basket)
+                            @foreach (UdemyETicaret.Models.i.BasketModels item in basket)
                             {
                                 <li>
                                     <a href="~/i/Product/@item.Product.Id">@item.Product.Name (@item.Count)</a>
@@ -109,7 +80,6 @@
                             }
                             <li class="divider" role="separator"></li>
                             <li><a href="~/i/Basket">Sepete Git</a></li>
-
                         </ul>
 
                     </li>
@@ -119,21 +89,20 @@
                             <a href="#"
                                class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <span class="glyphicon glyphicon-envelope"></span>&nbsp;Mesajlar
-                                @* TODO:Mesaj sayısı eklenecek. *@
+                                @* TODO: mesaj sayısı eklenecek *@
                                 <span class="badge">0</span>
                                 <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu">
                                 @*
-                        TODO:Buraya gerçek mesajlar gelecek.
-                        <li><a href="message.html">Mesaj 1</a></li>
-                    <li><a href="message.html">Mesaj 2</a></li>*@
+                                        TODO: buraya gerçek mesajalr gelcek
+                                        <li><a href="message.html">Mesaj 1</a></li>
+                                    <li><a href="message.html">Mesaj 2</a></li>*@
                                 <li class="divider" role="separator"></li>
                                 <li><a href="#">Mesajlara Git</a></li>
                             </ul>
                         </li>
-
                         <li>
                             <a href="~/Account/logout">
                                 <span class="glyphicon glyphicon-log-out"></span>&nbsp;Çıkış
@@ -148,6 +117,7 @@
     <div class="container">
         @RenderBody()
     </div>
+
     <div class="well">
         <div class="row">
 
@@ -182,4 +152,3 @@
 
 </body>
 </html>
-

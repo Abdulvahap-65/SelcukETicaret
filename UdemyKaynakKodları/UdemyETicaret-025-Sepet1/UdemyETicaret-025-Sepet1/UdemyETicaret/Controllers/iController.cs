@@ -1,18 +1,16 @@
-﻿using SelcukETicaret.DB;
-using SelcukETicaret.Models.i;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SelcukETicaret.Models;
+using UdemyETicaret.DB;
+using UdemyETicaret.Models;
+using UdemyETicaret.Models.i;
 
-
-namespace SelcukETicaret.Controllers
+namespace UdemyETicaret.Controllers
 {
     public class iController : BaseController
     {
-
         // GET: i
         [HttpGet]
         public ActionResult Index(int id = 0)
@@ -36,7 +34,7 @@ namespace SelcukETicaret.Controllers
         {
             var pro = context.Products.FirstOrDefault(x => x.Id == id);
 
-            if (pro == null) return RedirectToAction("Index", "i");
+            if (pro == null) return RedirectToAction("index", "i");
 
             ProductModels model = new ProductModels()
             {
@@ -65,10 +63,8 @@ namespace SelcukETicaret.Controllers
         public ActionResult AddBasket(int id)
         {
             List<Models.i.BasketModels> basket = null;
-           
             if (Session["Basket"] == null)
             {
-
                 basket = new List<Models.i.BasketModels>();
             }
             else
@@ -94,45 +90,9 @@ namespace SelcukETicaret.Controllers
                 }
             }
             Session["Basket"] = basket;
+
             return RedirectToAction("Basket", "i");
         }
-
-        //[HttpGet]
-        //public ActionResult AddBasket(int id)
-        //{
-        //    //List<Models.i.BasketModels> basket = null;
-        //    BasketModels basket = null;
-        //    if (Session["Basket"] == null)
-        //    {
-        //        basket = new List<Models.i.BasketModels>();
-        //    }
-        //    else
-        //    {
-        //        basket = (List<Models.i.BasketModels>)Session["Basket"];
-        //    }
-
-        //    if (basket.Any(x => x.Product.Id == id))
-        //    {
-        //        var pro = basket.FirstOrDefault(x => x.Product.Id == id);
-        //        pro.Count += 1;
-        //    }
-        //    else
-        //    {
-        //        var pro = context.Products.FirstOrDefault(x => x.Id == id);
-        //        if (pro != null)
-        //        {
-        //            basket.Add(new Models.i.BasketModels()
-        //            {
-        //                Count = 1,
-        //                Product = pro
-        //            });
-        //        }
-        //    }
-        //    Session["Basket"] = basket;
-
-        //    return RedirectToAction("Basket", "i");
-        //}
-
         [HttpGet]
         public ActionResult Basket()
         {
@@ -146,9 +106,5 @@ namespace SelcukETicaret.Controllers
 
             return View(model);
         }
-
     }
 }
-
-
-
