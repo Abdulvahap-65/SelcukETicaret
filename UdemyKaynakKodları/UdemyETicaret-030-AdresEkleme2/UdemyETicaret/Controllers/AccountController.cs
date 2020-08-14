@@ -4,14 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SelcukETicaret.Models.Account;
+using UdemyETicaret.Models.Account;
 
-
-namespace SelcukETicaret.Controllers
+namespace UdemyETicaret.Controllers
 {
-    public class AccountController :BaseController
+    public class AccountController : BaseController
     {
-
         // GET: Account
         [HttpGet]
         public ActionResult Register()
@@ -84,7 +82,7 @@ namespace SelcukETicaret.Controllers
             if (id == 0)
             {
                 id = base.CurrentUserId();
-              addresses = context.Addresses.Where(x => x.Member_Id == id).ToList();
+                addresses = context.Addresses.Where(x => x.Member_Id == id).ToList();
             }
             var user = context.Members.FirstOrDefault(x => x.Id == id);
             if (user == null) return RedirectToAction("index", "i");
@@ -92,11 +90,9 @@ namespace SelcukETicaret.Controllers
             {
                 Members = user,
                 Addresses = addresses
-
             };
             return View(model);
         }
-
         [HttpGet]
         public ActionResult ProfilEdit()
         {
@@ -151,7 +147,7 @@ namespace SelcukETicaret.Controllers
                 {
                     Members = context.Members.FirstOrDefault(x => x.Id == id)
                 };
-                return View(/*viewModel*/);
+                return View(viewModel);
             }
         }
         [HttpPost]
