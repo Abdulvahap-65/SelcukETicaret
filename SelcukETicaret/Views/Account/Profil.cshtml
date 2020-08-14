@@ -84,10 +84,10 @@
                         <tr>
                             <td>@item.Name</td>
                             <td>
-                                <a href="~/i" class="btn btn-info btn-xs">
+                                <a href="~/Account/Profil?ad=@item.Id.ToString()" class="btn btn-info btn-xs">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </a> &nbsp;
-                                <a href="~/i class="btn btn-danger btn-xs">
+                                <a href="~/Account/RemoveAddress/@item.Id.ToString()" class="btn btn-danger btn-xs">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
@@ -97,12 +97,12 @@
             </table>
             @using (Html.BeginForm("Address", "Account"))
             {
-                @Html.Hidden("Id", "")
+                @Html.Hidden("Id", Model.CurrentAddress.Id.ToString())
                 <div class="form-group">
-                    @Html.TextBox("Name", "", new { @class = "form-control", placeholder = "Adres Adı" })
+                    @Html.TextBox("Name", Model.CurrentAddress.Name, new { @class = "form-control", placeholder = "Adres Adı" })
                 </div>
                 <div class="form-group">
-                    @Html.TextArea("AdresDescription", "", new { @class = "form-control", placeholder = "Adresiniz" })
+                    @Html.TextArea("AdresDescription", Model.CurrentAddress.AdresDescription, new { @class = "form-control", placeholder = "Adresiniz" })
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-info">Kaydet</button>

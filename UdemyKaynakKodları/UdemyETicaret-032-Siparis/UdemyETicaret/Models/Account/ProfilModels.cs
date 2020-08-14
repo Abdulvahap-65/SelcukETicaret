@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SelcukETicaret.Models.Account
+namespace UdemyETicaret.Models.Account
 {
     public class ProfilModels
     {

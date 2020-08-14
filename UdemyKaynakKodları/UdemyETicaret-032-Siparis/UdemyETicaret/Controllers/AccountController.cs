@@ -4,14 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SelcukETicaret.Models.Account;
+using UdemyETicaret.Models.Account;
 
-
-namespace SelcukETicaret.Controllers
+namespace UdemyETicaret.Controllers
 {
-    public class AccountController :BaseController
+    public class AccountController : BaseController
     {
-
         // GET: Account
         [HttpGet]
         public ActionResult Register()
@@ -156,7 +154,7 @@ namespace SelcukETicaret.Controllers
                 {
                     Members = context.Members.FirstOrDefault(x => x.Id == id)
                 };
-                return View(/*viewModel*/);
+                return View(viewModel);
             }
         }
         [HttpPost]
@@ -172,15 +170,15 @@ namespace SelcukETicaret.Controllers
             }
             else
             {
-
                 _address = context.Addresses.FirstOrDefault(x => x.Id == address.Id);
                 _address.ModifiedDate = DateTime.Now;
                 _address.Name = address.Name;
-                _address.AdresDescription = address.AdresDescription;           
+                _address.AdresDescription = address.AdresDescription;
             }
             context.SaveChanges();
             return RedirectToAction("Profil", "Account");
         }
+
         [HttpGet]
         public ActionResult RemoveAddress(string id)
         {
