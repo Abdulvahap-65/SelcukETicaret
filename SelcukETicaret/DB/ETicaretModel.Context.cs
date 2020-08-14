@@ -25,7 +25,6 @@ namespace SelcukETicaret.DB
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Addresses> Addresses { get; set; }
         public virtual DbSet<Comments> Comments { get; set; }
         public virtual DbSet<MessageReplies> MessageReplies { get; set; }
         public virtual DbSet<Messages> Messages { get; set; }
@@ -34,5 +33,6 @@ namespace SelcukETicaret.DB
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Members> Members { get; set; }
+        public virtual DbSet<Addresses> Addresses { get; set; }
     }
 }

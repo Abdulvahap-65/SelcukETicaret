@@ -10,10 +10,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="AdresDescription" Type="nvarchar" MaxLength="300" />
+          <Property Name="AdresDescription" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Member_Id" Type="int" Nullable="false" />
           <Property Name="AddedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -290,17 +291,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SelcukETicaretDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Addresses">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="AdresDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Member_Id" Type="Int32" Nullable="false" />
-          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Members" Relationship="SelcukETicaretDBModel.FK_Addresses_Members" FromRole="Addresses" ToRole="Members" />
-        </EntityType>
         <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="Id" />
@@ -436,7 +426,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ETicaretDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Addresses" EntityType="Self.Addresses" />
           <EntitySet Name="Comments" EntityType="Self.Comments" />
           <EntitySet Name="MessageReplies" EntityType="Self.MessageReplies" />
           <EntitySet Name="Messages" EntityType="Self.Messages" />
@@ -469,10 +458,6 @@
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <EntitySet Name="Members" EntityType="SelcukETicaretDBModel.Members" />
-          <AssociationSet Name="FK_Addresses_Members" Association="SelcukETicaretDBModel.FK_Addresses_Members">
-            <End Role="Members" EntitySet="Members" />
-            <End Role="Addresses" EntitySet="Addresses" />
-          </AssociationSet>
           <AssociationSet Name="FK_Comments_Members" Association="SelcukETicaretDBModel.FK_Comments_Members">
             <End Role="Members" EntitySet="Members" />
             <End Role="Comments" EntitySet="Comments" />
@@ -484,6 +469,11 @@
           <AssociationSet Name="FK_Orders_Members" Association="SelcukETicaretDBModel.FK_Orders_Members">
             <End Role="Members" EntitySet="Members" />
             <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="Addresses" EntityType="SelcukETicaretDBModel.Addresses" />
+          <AssociationSet Name="FK_Addresses_Members" Association="SelcukETicaretDBModel.FK_Addresses_Members">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Addresses" EntitySet="Addresses" />
           </AssociationSet>
         </EntityContainer>
         <EnumType Name="MemberTypes">
@@ -543,23 +533,11 @@
           <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="MemberType" Type="SelcukETicaretDBModel.MemberType" Nullable="false" />
-          <NavigationProperty Name="Addresses" Relationship="SelcukETicaretDBModel.FK_Addresses_Members" FromRole="Members" ToRole="Addresses" />
           <NavigationProperty Name="Comments" Relationship="SelcukETicaretDBModel.FK_Comments_Members" FromRole="Members" ToRole="Comments" />
           <NavigationProperty Name="MessageReplies" Relationship="SelcukETicaretDBModel.FK_MessageReplies_Members" FromRole="Members" ToRole="MessageReplies" />
           <NavigationProperty Name="Orders" Relationship="SelcukETicaretDBModel.FK_Orders_Members" FromRole="Members" ToRole="Orders" />
+          <NavigationProperty Name="Addresses" Relationship="SelcukETicaretDBModel.FK_Addresses_Members" FromRole="Members" ToRole="Addresses" />
         </EntityType>
-        <Association Name="FK_Addresses_Members">
-          <End Type="SelcukETicaretDBModel.Members" Role="Members" Multiplicity="1" />
-          <End Type="SelcukETicaretDBModel.Addresses" Role="Addresses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Members">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Addresses">
-              <PropertyRef Name="Member_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Comments_Members">
           <End Type="SelcukETicaretDBModel.Members" Role="Members" Multiplicity="1" />
           <End Type="SelcukETicaretDBModel.Comments" Role="Comments" Multiplicity="*" />
@@ -601,23 +579,36 @@
           <Member Name="Admin" Value="10" />
           <Member Name="Editor" Value="8" />
         </EnumType>
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AdresDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Member_Id" Type="Int32" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Members" Relationship="SelcukETicaretDBModel.FK_Addresses_Members" FromRole="Addresses" ToRole="Members" />
+        </EntityType>
+        <Association Name="FK_Addresses_Members">
+          <End Type="SelcukETicaretDBModel.Members" Role="Members" Multiplicity="1" />
+          <End Type="SelcukETicaretDBModel.Addresses" Role="Addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="Member_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SelcukETicaretDBModelStoreContainer" CdmEntityContainer="ETicaretDBEntities">
-          <EntitySetMapping Name="Addresses">
-            <EntityTypeMapping TypeName="SelcukETicaretDBModel.Addresses">
-              <MappingFragment StoreEntitySet="Addresses">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AdresDescription" ColumnName="AdresDescription" />
-                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="SelcukETicaretDBModel.Comments">
               <MappingFragment StoreEntitySet="Comments">
@@ -722,6 +713,18 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="SelcukETicaretDBModel.Addresses">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
+                <ScalarProperty Name="AdresDescription" ColumnName="AdresDescription" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

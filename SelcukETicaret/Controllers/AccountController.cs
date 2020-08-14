@@ -80,15 +80,19 @@ namespace SelcukETicaret.Controllers
         [HttpGet]
         public ActionResult Profil(int id = 0)
         {
+            var addresses = new List<DB.Addresses>();
             if (id == 0)
             {
                 id = base.CurrentUserId();
+              addresses = context.Addresses.Where(x => x.Member_Id == id).ToList();
             }
             var user = context.Members.FirstOrDefault(x => x.Id == id);
             if (user == null) return RedirectToAction("index", "i");
             ProfilModels model = new ProfilModels()
             {
-                Members = user
+                Members = user,
+                Addresses = addresses
+
             };
             return View(model);
         }

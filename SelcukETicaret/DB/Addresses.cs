@@ -19,6 +19,7 @@ namespace SelcukETicaret.DB
         public int Member_Id { get; set; }
         public System.DateTime AddedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public string Name { get; set; }
     
         public virtual Members Members { get; set; }
     }
