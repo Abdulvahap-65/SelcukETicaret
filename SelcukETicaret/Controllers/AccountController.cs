@@ -103,6 +103,7 @@ namespace SelcukETicaret.Controllers
             return View(model);
         }
         [HttpGet]
+
         public ActionResult ProfilEdit()
         {
             int id = base.CurrentUserId();
