@@ -57,6 +57,18 @@
             </tbody>
 
             <tfoot>
+                @if (ViewBag.CurrentAddresses != null && ((List<SelectListItem>)ViewBag.CurrentAddresses) != null)
+                {
+                    <tr>
+                        <td colspan="2">
+                            @Html.Label("AddressId", "Adres Seçiniz")
+                        </td>
+                        <td colspan="4">
+                            @Html.DropDownList("Address", (List<SelectListItem>)ViewBag.CurrentAddresses, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                }
+
                 <tr>
                     <td>
                         &nbsp;
@@ -69,7 +81,7 @@
                         <a href="~/i/RemoveBasket/0" class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-trash"></span> Sepeti Boşalt
                         </a>
-                        <a href="#" class="btn btn-success btn-sm">
+                        <a href="~/i/Buy" class="btn btn-success btn-sm">
                             <span class="glyphicon glyphicon-send"></span> Satın Al
                         </a>
                     </td>

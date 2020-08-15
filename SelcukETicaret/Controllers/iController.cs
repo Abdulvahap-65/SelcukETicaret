@@ -125,6 +125,17 @@ namespace SelcukETicaret.Controllers
             {
                 model = new List<Models.i.BasketModels>();
             }
+            if (base.IsLogon())
+            {
+                int currentId = CurrentUserId();
+                ViewBag.CurrentAddresses = context.Addresses
+                                            .Where(x => x.Member_Id == currentId)
+                                            .Select(x => new SelectListItem()
+                                            {
+                                                Text = x.Name,
+                                                Value = x.Id.ToString()
+                                            }).ToList();
+            }
 
             ViewBag.TotalPrice = model.Select(x => x.Product.Price * x.Count).Sum();
 
@@ -148,6 +159,21 @@ namespace SelcukETicaret.Controllers
             }
             return RedirectToAction("Basket", "i");
         }
+
+        [HttpGet]
+        public ActionResult Buy()
+        {
+            if (IsLogon())
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+        }
+
 
     }
 
