@@ -123,6 +123,7 @@ namespace SelcukETicaret.Controllers
             List<Models.i.BasketModels> model = (List<Models.i.BasketModels>)Session["Basket"];
             if (model == null)
             {
+
                 model = new List<Models.i.BasketModels>();
             }
             if (base.IsLogon())
@@ -160,6 +161,65 @@ namespace SelcukETicaret.Controllers
             return RedirectToAction("Basket", "i");
         }
 
+        [HttpPost]
+        public ActionResult Buy(string Address)
+        {
+            if (IsLogon())
+            {
+                try
+                {
+                    var basket = (List<Models.i.BasketModels>)Session["Basket"];
+                    var guid = new Guid(Address);
+                    var _address = context.Addresses.FirstOrDefault(x => x.Id == guid);
+                    //Sipariş Verildi = SV
+                    //Ödeme Bildirimi = OB
+                    //Ödeme Onaylandı = OO
+
+                    var order = new DB.Orders()
+                    {
+                        AddedDate = DateTime.Now,
+                        Address = _address.AdresDescription,
+                        Member_Id = CurrentUserId(),
+                        Status = "SV"
+                    };
+                    //5
+                    //ahmet 5
+                    //mehmet 5
+                    foreach (Models.i.BasketModels item in basket)
+                    {
+                        var oDetail = new DB.OrderDetails();
+                        oDetail.AddedDate = DateTime.Now;
+                        oDetail.Price = item.Product.Price * item.Count;
+                        oDetail.Product_Id = item.Product.Id;
+                        oDetail.Quantity = item.Count;
+
+                        order.OrderDetails.Add(oDetail);
+
+                        var _product = context.Products.FirstOrDefault(x => x.Id == item.Product.Id);
+                        if (_product != null && _product.UnitsInStock >= item.Count)
+                        {
+                            _product.UnitsInStock = _product.UnitsInStock - item.Count;
+                        }
+                        else
+                        {
+                            throw new Exception(string.Format("{0} ürünü için yeterli stok yoktur veya silinmiş bir ürünü almaya çalışıyorsunuz.", item.Product.Name));
+                        }
+                    }
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.MyError = ex.Message;
+                }
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+        }
+
         [HttpGet]
         public ActionResult Buy()
         {
@@ -178,6 +238,7 @@ namespace SelcukETicaret.Controllers
     }
 
 }
+
 
 
 
