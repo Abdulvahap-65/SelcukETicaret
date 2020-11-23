@@ -180,7 +180,8 @@ namespace SelcukETicaret.Controllers
                         AddedDate = DateTime.Now,
                         Address = _address.AdresDescription,
                         Member_Id = CurrentUserId(),
-                        Status = "SV"
+                        Status = "SV",
+                        Id=Guid.NewGuid()
                     };
                     //5
                     //ahmet 5
@@ -192,6 +193,7 @@ namespace SelcukETicaret.Controllers
                         oDetail.Price = item.Product.Price * item.Count;
                         oDetail.Product_Id = item.Product.Id;
                         oDetail.Quantity = item.Count;
+                        oDetail.Id = Guid.NewGuid();
 
                         order.OrderDetails.Add(oDetail);
 
@@ -205,6 +207,7 @@ namespace SelcukETicaret.Controllers
                             throw new Exception(string.Format("{0} ürünü için yeterli stok yoktur veya silinmiş bir ürünü almaya çalışıyorsunuz.", item.Product.Name));
                         }
                     }
+                    context.Orders.Add(order);
                     context.SaveChanges();
                 }
                 catch (Exception ex)

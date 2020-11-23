@@ -7,6 +7,9 @@
 7-Ders 321 de  5. dk dan itibaren Sepete ekleme işlemi yapamıyorum.What iis the matter?
 8-Ders 323 te dk 9.05 te ürün gelmediği için remove ve ad işlemlerini gözlemleyemiyorum.Kontrol et.
 9-Ders 324 te dk 2.36 da ürün gelmediği için yeterli stok yok uyarısını  gözlemleyemiyorum.Kontrol et.
+10.Ders 327 de dk 13.08 den itibaren uygulamalı yap.doğru sonucu gözlemlemye çalış.Bende anasayfada db den gelen ürün olmadığı için sonucu göremiyorum.  
+11.Ders 328 de dk 4 den itibaren uygulamalı yap.doğru sonucu gözlemlemye çalış.Bende anasayfada db den gelen ürün olmadığı için sonucu göremiyorum.  
+
 
 
 
