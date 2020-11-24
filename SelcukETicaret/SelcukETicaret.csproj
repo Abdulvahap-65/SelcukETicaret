@@ -248,6 +248,7 @@
     <Compile Include="Models\i\BuyModels.cs" />
     <Compile Include="Models\i\CommentModels.cs" />
     <Compile Include="Models\i\IndexModel.cs" />
+    <Compile Include="Models\i\OrderNotificationModel.cs" />
     <Compile Include="Models\i\ProductModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

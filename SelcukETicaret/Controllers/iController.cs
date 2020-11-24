@@ -89,7 +89,7 @@ namespace SelcukETicaret.Controllers
                     }
                     else
                     {
-                        TempData["MyError"]= "Yeterli Stok yok";
+                        TempData["MyError"] = "Yeterli Stok yok";
                     }
                 }
 
@@ -181,7 +181,7 @@ namespace SelcukETicaret.Controllers
                         Address = _address.AdresDescription,
                         Member_Id = CurrentUserId(),
                         Status = "SV",
-                        Id=Guid.NewGuid()
+                        Id = Guid.NewGuid()
                     };
                     //5
                     //ahmet 5
@@ -234,8 +234,9 @@ namespace SelcukETicaret.Controllers
                 foreach (var item in orders)
                 {
                     var byModel = new BuyModels();
-                    byModel.TotelPrice = item.OrderDetails.Sum(y=>y.Price);
+                    byModel.TotelPrice = item.OrderDetails.Sum(y => y.Price);
                     byModel.OrderName = string.Join(",", item.OrderDetails.Select(y => y.Products.Name + "(" + y.Quantity + ")"));
+                    byModel.OrderStatus = item.Status;
 
                     model.Add(byModel);
                 }
@@ -248,6 +249,21 @@ namespace SelcukETicaret.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult OrderNotification(OrderNotificationModel model)
+        {
+            if (string.IsNullOrEmpty(model.OrderId) == false)
+            {
+                var guid = new Guid(model.OrderId);
+               var order= context.Orders.FirstOrDefault(x => x.Id == guid);
+                if (order!=null)
+                {
+                    order.Description = model.OrderDescripton;
+                    context.SaveChanges();
+                }
+            }
+            return Json("");
+        }
 
     }
 
