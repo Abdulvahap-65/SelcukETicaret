@@ -228,7 +228,18 @@ namespace SelcukETicaret.Controllers
         {
             if (IsLogon())
             {
-                return View();
+                var currentId = CurrentUserId();
+                var orders = context.Orders.Where(x => x.Member_Id == currentId);
+                List<Models.i.BuyModels> model = new List<BuyModels>();
+                foreach (var item in orders)
+                {
+                    var byModel = new BuyModels();
+                    byModel.TotelPrice = item.OrderDetails.Sum(y=>y.Price);
+                    byModel.OrderName = string.Join(",", item.OrderDetails.Select(y => y.Products.Name + "(" + y.Quantity + ")"));
+
+                    model.Add(byModel);
+                }
+                return View(model);
             }
             else
             {

@@ -245,6 +245,7 @@
     <Compile Include="Models\BasketModels.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\i\BasketModels.cs" />
+    <Compile Include="Models\i\BuyModels.cs" />
     <Compile Include="Models\i\CommentModels.cs" />
     <Compile Include="Models\i\IndexModel.cs" />
     <Compile Include="Models\i\ProductModels.cs" />
