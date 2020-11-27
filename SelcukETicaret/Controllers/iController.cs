@@ -212,9 +212,9 @@ namespace SelcukETicaret.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.MyError = ex.Message;
+                    TempData["MyError"] = ex.Message;
                 }
-                return View();
+                return RedirectToAction("Buy", "i");
             }
             else
             {
@@ -237,6 +237,7 @@ namespace SelcukETicaret.Controllers
                     byModel.TotelPrice = item.OrderDetails.Sum(y => y.Price);
                     byModel.OrderName = string.Join(",", item.OrderDetails.Select(y => y.Products.Name + "(" + y.Quantity + ")"));
                     byModel.OrderStatus = item.Status;
+                    byModel.OrderId = item.Id.ToString();
 
                     model.Add(byModel);
                 }
@@ -255,10 +256,11 @@ namespace SelcukETicaret.Controllers
             if (string.IsNullOrEmpty(model.OrderId) == false)
             {
                 var guid = new Guid(model.OrderId);
-               var order= context.Orders.FirstOrDefault(x => x.Id == guid);
-                if (order!=null)
+                var order = context.Orders.FirstOrDefault(x => x.Id == guid);
+                if (order != null)
                 {
-                    order.Description = model.OrderDescripton;
+                    order.Description = model.OrderDescription;
+                    order.Status = "OB";
                     context.SaveChanges();
                 }
             }

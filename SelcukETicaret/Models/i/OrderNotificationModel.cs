@@ -7,7 +7,7 @@ namespace SelcukETicaret.Models.i
 {
     public class OrderNotificationModel
     {
-        public string OrderId { get; set;}
-        public string OrderDescripton { get; set;}
+        public string OrderId { get; set; }
+        public string OrderDescription { get; set; }
     }
 }

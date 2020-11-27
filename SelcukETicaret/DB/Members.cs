@@ -19,8 +19,8 @@ namespace SelcukETicaret.DB
         {
             this.Comments = new HashSet<Comments>();
             this.MessageReplies = new HashSet<MessageReplies>();
-            this.Orders = new HashSet<Orders>();
             this.Addresses = new HashSet<Addresses>();
+            this.Orders = new HashSet<Orders>();
         }
     
         public int Id { get; set; }
@@ -39,8 +39,8 @@ namespace SelcukETicaret.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MessageReplies> MessageReplies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Orders> Orders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Addresses> Addresses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }
