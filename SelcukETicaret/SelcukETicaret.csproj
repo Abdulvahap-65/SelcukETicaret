@@ -188,6 +188,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\iController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="DB\Addresses.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
@@ -250,6 +251,8 @@
     <Compile Include="Models\i\IndexModel.cs" />
     <Compile Include="Models\i\OrderNotificationModel.cs" />
     <Compile Include="Models\i\ProductModels.cs" />
+    <Compile Include="Models\Message\iModels.cs" />
+    <Compile Include="Models\Message\SendMessageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +289,7 @@
     <Content Include="Views\Account\ProfilEdit.cshtml" />
     <Content Include="Views\i\Basket.cshtml" />
     <Content Include="Views\i\Buy.cshtml" />
+    <Content Include="Views\Message\i.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
