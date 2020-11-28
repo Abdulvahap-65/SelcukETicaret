@@ -1,7 +1,7 @@
-﻿@model SelcukETicaret.Models.i.IndexModel
+﻿@model UdemyETicaret.Models.i.IndexModel
 @{
     ViewBag.Title = "Index";
-    List<SelcukETicaret.DB.Categories> categories = new List<SelcukETicaret.DB.Categories>();
+    List<UdemyETicaret.DB.Categories> categories = new List<UdemyETicaret.DB.Categories>();
     if (Model.Category != null)
     {
         categories.Add(Model.Category);
@@ -25,23 +25,21 @@
                 }
                 else
                 {
-                    <li><a href="@Url.Action("index", "i", new { id = categories[i].Id })">@categories[i].Name</a></li>
+                    <li><a href="@Url.Action("index","i",new { id=categories[i].Id })">@categories[i].Name</a></li>
                 }
 
             }
-            @*<li><a href="#">Teknoloji</a></li>
-                <li class="active">Bilgisayar</li>*@
+            @*<li class="active">Bilgisayar</li>*@
         </ol>
     </div>
 </div>
-
 <div class="row">
     @foreach (var item in Model.Products)
     {
         @Html.Partial("ProductItem", item);
     }
-</div>
 
+</div>
 <div class="modal fade" id="productinfo" tabindex="-1" role="dialog" aria-labelledby="productinfo-label">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -81,4 +79,3 @@
         });
     }
 </script>
-

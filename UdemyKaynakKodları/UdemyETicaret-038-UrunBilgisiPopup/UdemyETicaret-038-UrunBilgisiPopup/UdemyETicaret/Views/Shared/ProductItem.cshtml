@@ -1,11 +1,10 @@
-﻿@model SelcukETicaret.DB.Products
+﻿@model UdemyETicaret.DB.Products
 @{
     if (string.IsNullOrEmpty(Model.ProductImageName))
     {
         Model.ProductImageName = "http://placehold.it/300x150";
     }
 }
-
 <div class="col-md-3 col-sm-4 col-xs-12">
     <div class="thumbnail">
         <img src="@Model.ProductImageName">

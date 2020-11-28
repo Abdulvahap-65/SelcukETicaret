@@ -1,18 +1,16 @@
-﻿using SelcukETicaret.DB;
-using SelcukETicaret.Models.i;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SelcukETicaret.Models;
+using UdemyETicaret.DB;
+using UdemyETicaret.Models;
+using UdemyETicaret.Models.i;
 
-
-namespace SelcukETicaret.Controllers
+namespace UdemyETicaret.Controllers
 {
     public class iController : BaseController
     {
-
         // GET: i
         [HttpGet]
         public ActionResult Index(int id = 0)
@@ -36,7 +34,7 @@ namespace SelcukETicaret.Controllers
         {
             var pro = context.Products.FirstOrDefault(x => x.Id == id);
 
-            if (pro == null) return RedirectToAction("Index", "i");
+            if (pro == null) return RedirectToAction("index", "i");
 
             ProductModels model = new ProductModels()
             {
@@ -115,15 +113,12 @@ namespace SelcukETicaret.Controllers
 
             return RedirectToAction("Basket", "i");
         }
-
-
         [HttpGet]
         public ActionResult Basket()
         {
             List<Models.i.BasketModels> model = (List<Models.i.BasketModels>)Session["Basket"];
             if (model == null)
             {
-
                 model = new List<Models.i.BasketModels>();
             }
             if (base.IsLogon())
@@ -137,7 +132,6 @@ namespace SelcukETicaret.Controllers
                                                 Value = x.Id.ToString()
                                             }).ToList();
             }
-
             ViewBag.TotalPrice = model.Select(x => x.Product.Price * x.Count).Sum();
 
             return View(model);
@@ -160,7 +154,6 @@ namespace SelcukETicaret.Controllers
             }
             return RedirectToAction("Basket", "i");
         }
-
         [HttpPost]
         public ActionResult Buy(string Address)
         {
@@ -222,7 +215,6 @@ namespace SelcukETicaret.Controllers
             }
 
         }
-
         [HttpGet]
         public ActionResult Buy()
         {
@@ -235,12 +227,12 @@ namespace SelcukETicaret.Controllers
                 {
                     var byModel = new BuyModels();
                     byModel.TotelPrice = item.OrderDetails.Sum(y => y.Price);
-                    byModel.OrderName = string.Join(",", item.OrderDetails.Select(y => y.Products.Name + "(" + y.Quantity + ")"));
+                    byModel.OrderName = string.Join(", ", item.OrderDetails.Select(y => y.Products.Name + "(" + y.Quantity + ")"));
                     byModel.OrderStatus = item.Status;
                     byModel.OrderId = item.Id.ToString();
-
                     model.Add(byModel);
                 }
+
                 return View(model);
             }
             else
@@ -266,17 +258,13 @@ namespace SelcukETicaret.Controllers
             }
             return Json("");
         }
+
         [HttpGet]
+        //[HttpPost]
         public JsonResult GetProductDes(int id)
         {
             var pro = context.Products.FirstOrDefault(x => x.Id == id);
             return Json(pro.Description, JsonRequestBehavior.AllowGet);
         }
-
     }
-
 }
-
-
-
-
