@@ -21,7 +21,7 @@ namespace SelcukETicaret.DB
         public System.DateTime AddedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual Messages Messages { get; set; }
         public virtual Members Members { get; set; }
+        public virtual Messages Messages { get; set; }
     }
 }

@@ -9,7 +9,7 @@
 9-Ders 324 te dk 2.36 da ürün gelmediği için yeterli stok yok uyarısını  gözlemleyemiyorum.Kontrol et.
 10.Ders 327 de dk 13.08 den itibaren uygulamalı yap.doğru sonucu gözlemlemye çalış.Bende anasayfada db den gelen ürün olmadığı için sonucu göremiyorum.  
 11.Ders 328 de dk 4 den itibaren uygulamalı yap.doğru sonucu gözlemlemye çalış.Bende anasayfada db den gelen ürün olmadığı için sonucu göremiyorum.  
-
+12.Ders 335 te bütün işlemleri yaptım,ancak gönderdiğim mesaj db ye düşmüyor.Bir bak bakalım.
 
 
 
