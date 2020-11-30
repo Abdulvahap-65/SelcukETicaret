@@ -31,7 +31,7 @@ namespace SelcukETicaret.Controllers
                 {
                     throw new Exception("Zaten bu e-posta adresi kayıtlıdır.");
                 }
-                user.Member.MemberType = DB.MemberType.Customer;
+                user.Member.MemberType = DB.MemberTypess.Customer;
                 user.Member.AddedDate = DateTime.Now;
                 context.Members.Add(user.Member);
                 context.SaveChanges();

@@ -222,6 +222,9 @@
     <Compile Include="DB\MemberTypes.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\MemberTypess.cs">
+      <DependentUpon>ETicaretModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\MessageReplies.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>

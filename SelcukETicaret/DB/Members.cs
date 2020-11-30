@@ -17,9 +17,10 @@ namespace SelcukETicaret.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Members()
         {
+            this.Addresses = new HashSet<Addresses>();
             this.Comments = new HashSet<Comments>();
             this.MessageReplies = new HashSet<MessageReplies>();
-            this.Addresses = new HashSet<Addresses>();
+            this.Messages = new HashSet<Messages>();
             this.Orders = new HashSet<Orders>();
         }
     
@@ -32,14 +33,16 @@ namespace SelcukETicaret.DB
         public string ProfileImageName { get; set; }
         public System.DateTime AddedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public MemberType MemberType { get; set; }
+        public MemberTypess MemberType { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Addresses> Addresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comments> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MessageReplies> MessageReplies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Addresses> Addresses { get; set; }
+        public virtual ICollection<Messages> Messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
     }

@@ -15,6 +15,7 @@ namespace SelcukETicaret.Controllers
             if (IsLogon() == false) return RedirectToAction("index", "i");
             var currentId = CurrentUserId();
             Models.Message.iModels model = new Models.Message.iModels();
+            #region -Select List Item-
             model.Users = new List<SelectListItem>();
             var users = context.Members.Where(x => ((int)x.MemberType) > 0 && x.Id != currentId).ToList();
             model.Users = users.Select(x => new SelectListItem()
@@ -22,6 +23,11 @@ namespace SelcukETicaret.Controllers
                 Value = x.Id.ToString(),
                 Text = string.Format("{0} {1} ({2})", x.Name, x.Surname, x.MemberType.ToString())
             }).ToList();
+            #endregion
+            #region -Mesaj Listesi-
+            var mList = context.Messages.Where(x => x.ToMemberId == currentId && x.MessageReplies.Any(y=>y.Member_Id==currentId)).ToList();
+            model.Messages = mList;
+            #endregion
             return View(model);
         }
         [HttpPost]
@@ -35,6 +41,7 @@ namespace SelcukETicaret.Controllers
                 AddedDate = DateTime.Now,
                 IsRead = false,
                 Subject = message.Subject,
+                ToMemberId = message.ToUserId,
                
             };
             var mRep = new DB.MessageReplies()

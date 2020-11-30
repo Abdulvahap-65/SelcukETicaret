@@ -8,5 +8,7 @@ namespace SelcukETicaret.Models.Message
     public class iModels
     {
         public List<System.Web.Mvc.SelectListItem> Users{ get; set; }
+        public List<DB.Messages> Messages { get; set; }
+
     }
 }
