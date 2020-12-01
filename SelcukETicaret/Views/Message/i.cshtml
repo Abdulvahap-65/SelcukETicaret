@@ -29,21 +29,21 @@
             <tbody>
                 <!--tr*4>(td>{29.11.2020})+(td>{abdulvahapselcuk})+(td>lorem3)+(td>button[class="btn btn-info btn-xs"]>span[class="glyphicon glyphicon-eye-open"]^button[class="btn btn-danger btn-xs"]>span[class="glyphicon glyphicon-trash"])-->
                 @foreach (var msj in Model.Messages)
-                {                  
-                        var user = msj.MessageReplies.OrderBy(x => x.AddedDate).FirstOrDefault().Members;               
+                {
+                    var user = msj.MessageReplies.OrderBy(x => x.AddedDate).FirstOrDefault().Members;
                     <tr>
                         <td>@msj.AddedDate.ToShortDateString()</td>
-                        <td>@(string.Format("{0} {1} ({2})",user.Name,user.Surname,user.MemberType.ToString()))</td>
+                        <td>@(string.Format("{0} {1} ({2})", user.Name, user.Surname, user.MemberType.ToString()))</td>
                         <td>
                             @msj.Subject
                         </td>
                         <td>
-                            <button class="btn btn-info btn-xs">
+                            <a href="~/Message/MessageReplies/@msj.Id" class="btn btn-info btn-xs">
                                 <span class="glyphicon glyphicon-eye-open"></span>
-                            </button>
-                            <button class="btn btn-danger btn-xs">
+                            </a>
+                            <a href="~/Message/RemoveMessageReplies/@msj.Id" class="btn btn-danger btn-xs">
                                 <span class="glyphicon glyphicon-trash"></span>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 }
@@ -64,41 +64,53 @@
 
     </div>
 </div>
-@using (Html.BeginForm("SendMessage","Message"))
+
+@*@using (Html.BeginForm("SendMessage", "Message", FormMethod.Post))*@
+@using (Html.BeginForm("SendMessage", "Message"))
+
 {
-<div class="modal fade" id="messagebox" tabindex="-1" role="dialog" aria-labelledby="messagebox-label">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="messagebox-label">Yeni Mesaj</h4>
-            </div>
-            <div class="modal-body">
+    <div class="modal fade" id="messagebox" tabindex="-1" role="dialog" aria-labelledby="messagebox-label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="messagebox-label">Yeni Mesaj</h4>
+                </div>
+                <div class="modal-body">
 
-                <div class="form-group">
-                    <div>
-                        @Html.DropDownList("ToUserId",Model.Users, new { @class = "form-control" })
-                        <span class="field-validation-valid text-danger" data-valmsg-for="messageto" data-valmsg-replace="true"></span>
+                    <div class="form-group">
+                        <div>
+                            @Html.DropDownList("ToUserId", Model.Users, new { @class = "form-control" })
+                            <span class="field-validation-valid text-danger" data-valmsg-for="messageto" data-valmsg-replace="true"></span>
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        @Html.TextBox("Subject", "", new { placeholder = "Konu", @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.TextArea("MessageBody", "", new { placeholder = "Mesaj Metni", @class = "form-control" })
+                    </div>
+
                 </div>
+                @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
 
-                <div class="form-group">
-                    @Html.TextBox("Subject","",new { placeholder = "Konu", @class="form-control" })
+                    <button type="submit" class="btn btn-success">
+                        @*data-dismiss="modal"*@
+                @*<span class="glyphicon glyphicon-send"></span> Gönder
+                        </button>
+                    </div>*@
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+
+                    <button type="submit" class="btn btn-success">
+                        <span class="glyphicon glyphicon-send"></span> Gönder
+                    </button>
                 </div>
-
-                <div class="form-group">
-                    @Html.TextArea("MessageBody","",new { placeholder = "Mesaj Metni", @class = "form-control" })
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
-
-                <button type="submit" class="btn btn-success" data-dismiss="modal">
-                    <span class="glyphicon glyphicon-send"></span> Gönder
-                </button>
             </div>
         </div>
     </div>
-</div>
 }

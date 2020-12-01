@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SelcukETicaret.Models.Message;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,14 +26,14 @@ namespace SelcukETicaret.Controllers
             }).ToList();
             #endregion
             #region -Mesaj Listesi-
-            var mList = context.Messages.Where(x => x.ToMemberId == currentId && x.MessageReplies.Any(y=>y.Member_Id==currentId)).ToList();
+            var mList = context.Messages.Where(x => x.ToMemberId == currentId || x.MessageReplies.Any(y=>y.Member_Id==currentId)).ToList();
             model.Messages = mList;
             #endregion
             return View(model);
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult SendMessage(Models.Message.SendMessageModel message)
-        {
+                             {
             if (IsLogon() == false) return RedirectToAction("index", "i");
 
             DB.Messages mesaj = new DB.Messages()
@@ -54,8 +55,29 @@ namespace SelcukETicaret.Controllers
             mesaj.MessageReplies.Add(mRep);
             context.Messages.Add(mesaj);
             context.SaveChanges();
-            return RedirectToAction("i", "Message");
+            return RedirectToAction("i","Message");
 
+        }
+        [HttpGet]
+        public ActionResult MessageReplies(string id)
+        {
+            if (IsLogon() == false) return RedirectToAction("index", "i");
+            MessageRepliesModel model = new MessageRepliesModel();
+            var guid = new Guid(id);
+            model.MReplies = context.MessageReplies.Where(X => X.MessageId == guid).ToList();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult MessageReplies(DB.MessageReplies message)
+        {
+            if (IsLogon() == false) return RedirectToAction("index", "i");
+            //MessageRepliesModel model = new MessageRepliesModel();
+            message.AddedDate = DateTime.Now;
+            message.Id = Guid.NewGuid();
+            message.Member_Id = CurrentUserId();
+            context.MessageReplies.Add(message);
+            context.SaveChanges();
+            return RedirectToAction("MessageReplies","Message",new {id=message.MessageId });
         }
 
     }
