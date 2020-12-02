@@ -299,6 +299,7 @@
     <Content Include="Views\Message\MessageReplies.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Product\i.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
