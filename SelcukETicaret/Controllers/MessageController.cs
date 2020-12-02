@@ -31,7 +31,7 @@ namespace SelcukETicaret.Controllers
             #endregion
             return View(model);
         }
-        [HttpGet]
+        [HttpPost]
         public ActionResult SendMessage(Models.Message.SendMessageModel message)
                              {
             if (IsLogon() == false) return RedirectToAction("index", "i");
@@ -64,20 +64,32 @@ namespace SelcukETicaret.Controllers
             if (IsLogon() == false) return RedirectToAction("index", "i");
             MessageRepliesModel model = new MessageRepliesModel();
             var guid = new Guid(id);
-            model.MReplies = context.MessageReplies.Where(X => X.MessageId == guid).ToList();
+            model.MReplies = context.MessageReplies.Where(X => X.MessageId == guid).OrderBy(x=>x.AddedDate).ToList();
             return View(model);
         }
         [HttpPost]
         public ActionResult MessageReplies(DB.MessageReplies message)
         {
             if (IsLogon() == false) return RedirectToAction("index", "i");
-            //MessageRepliesModel model = new MessageRepliesModel();
             message.AddedDate = DateTime.Now;
             message.Id = Guid.NewGuid();
             message.Member_Id = CurrentUserId();
             context.MessageReplies.Add(message);
             context.SaveChanges();
             return RedirectToAction("MessageReplies","Message",new {id=message.MessageId });
+        }
+
+        [HttpGet]
+        public ActionResult RenderMessage()
+        {
+            RenderMessageModel model = new RenderMessageModel();
+            var currentId = CurrentUserId();
+            var mList = context.Messages
+                .Where(x => x.ToMemberId == currentId || x.MessageReplies.Any(y => y.Member_Id == currentId))
+                .OrderByDescending(x=>x.AddedDate);
+            model.Messages = mList.Take(4).ToList();
+            model.Count = mList.Count();
+            return PartialView("_Message",model);
         }
 
     }

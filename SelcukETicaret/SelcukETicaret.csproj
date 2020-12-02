@@ -256,6 +256,7 @@
     <Compile Include="Models\i\ProductModels.cs" />
     <Compile Include="Models\Message\iModels.cs" />
     <Compile Include="Models\Message\MessageReplies.cs" />
+    <Compile Include="Models\Message\RenderMessageModel.cs" />
     <Compile Include="Models\Message\SendMessageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -295,6 +296,7 @@
     <Content Include="Views\i\Buy.cshtml" />
     <Content Include="Views\Message\i.cshtml" />
     <Content Include="Views\Message\MessageReplies.cshtml" />
+    <Content Include="Views\Shared\_Message.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
