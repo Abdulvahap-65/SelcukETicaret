@@ -62,8 +62,15 @@ namespace SelcukETicaret.Controllers
         public ActionResult MessageReplies(string id)
         {
             if (IsLogon() == false) return RedirectToAction("index", "i");
-            MessageRepliesModel model = new MessageRepliesModel();
+            var currentId = CurrentUserId();
             var guid = new Guid(id);
+            DB.Messages message = context.Messages.FirstOrDefault(x => x.Id == guid);
+            if (message.ToMemberId== currentId)
+            {
+                message.IsRead = true;
+                context.SaveChanges();
+            }
+            MessageRepliesModel model = new MessageRepliesModel();
             model.MReplies = context.MessageReplies.Where(X => X.MessageId == guid).OrderBy(x=>x.AddedDate).ToList();
             return View(model);
         }
@@ -90,6 +97,18 @@ namespace SelcukETicaret.Controllers
             model.Messages = mList.Take(4).ToList();
             model.Count = mList.Count();
             return PartialView("_Message",model);
+        }
+        public ActionResult RemoveMessageReplies(string id)
+        {
+            var guid = new Guid(id);
+            //Mesaj cevapları silindi.
+            var mReplies = context.MessageReplies.Where(x => x.MessageId == guid);
+            context.MessageReplies.RemoveRange(mReplies);
+            //Mesajın kendisi silindi.
+            var message = context.Messages.FirstOrDefault(x => x.Id == guid);
+            context.Messages.Remove(message);
+            context.SaveChanges();
+            return RedirectToAction("i", "Message");
         }
 
     }

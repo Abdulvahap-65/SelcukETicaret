@@ -1,6 +1,7 @@
 ﻿@model SelcukETicaret.Models.Message.iModels
 @{
     ViewBag.Title = "Mesajlar";
+    var currentUser = (SelcukETicaret.DB.Members)Session["LogonUser"];
 }
 
 
@@ -19,6 +20,7 @@
             <thead>
                 <tr>
                     <!--th*4>{kolon adı}-->
+                    <th class="text-center"></th>
                     <th class="text-center">Tarih</th>
                     <th class="text-center">Kimden</th>
                     <th class="text-center">Konu</th>
@@ -32,6 +34,12 @@
                 {
                     var user = msj.MessageReplies.OrderBy(x => x.AddedDate).FirstOrDefault().Members;
                     <tr>
+                        <td>
+                            @if (msj.IsRead)
+                            {   
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            }
+                        </td>
                         <td>@msj.AddedDate.ToShortDateString()</td>
                         <td>@(string.Format("{0} {1} ({2})", user.Name, user.Surname, user.MemberType.ToString()))</td>
                         <td>
@@ -41,9 +49,13 @@
                             <a href="~/Message/MessageReplies/@msj.Id" class="btn btn-info btn-xs">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </a>
-                            <a href="~/Message/RemoveMessageReplies/@msj.Id" class="btn btn-danger btn-xs">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
+                            @if (user.Id== currentUser.Id)
+                            {
+                                <a href="~/Message/RemoveMessageReplies/@msj.Id" class="btn btn-danger btn-xs">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            }
+
                         </td>
                     </tr>
                 }
@@ -79,18 +91,18 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <div>
+                        <div>                         
                             @Html.DropDownList("ToUserId", Model.Users, new { @class = "form-control" })
                             <span class="field-validation-valid text-danger" data-valmsg-for="messageto" data-valmsg-replace="true"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.TextBox("Subject", "", new { placeholder = "Konu", @class = "form-control" })
+                        @Html.TextBox("Subject", "", new { placeholder = "Konu", @class = "form-control", required = "required" })
                     </div>
 
                     <div class="form-group">
-                        @Html.TextArea("MessageBody", "", new { placeholder = "Mesaj Metni", @class = "form-control" })
+                        @Html.TextArea("MessageBody", "", new { placeholder = "Mesaj Metni", @class = "form-control", required = "required" })
                     </div>
 
                 </div>
