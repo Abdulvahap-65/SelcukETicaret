@@ -189,6 +189,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\iController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DB\Addresses.cs">
       <DependentUpon>ETicaretModel.tt</DependentUpon>
     </Compile>
@@ -297,6 +298,7 @@
     <Content Include="Views\Message\i.cshtml" />
     <Content Include="Views\Message\MessageReplies.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
+    <Content Include="Views\Product\i.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
