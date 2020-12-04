@@ -18,9 +18,9 @@ namespace SelcukETicaret.Controllers
                 return RedirectToAction("index", "i");
             }
             var products = context.Products.Where(x=>x.IsDeleted==false || x.IsDeleted==null).ToList();
-            return View(products);
+            return View(products.OrderByDescending(x=>x.AddedDate).ToList());
         }
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id=0)
         {
             var product = context.Products.FirstOrDefault(x => x.Id == id);
             var categories = context.Categories.Select(x => new SelectListItem()
