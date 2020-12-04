@@ -309,6 +309,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\upload\Product\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

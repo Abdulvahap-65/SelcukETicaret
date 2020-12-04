@@ -11,6 +11,7 @@
 11.Ders 328 de dk 4 den itibaren uygulamalı yap.doğru sonucu gözlemlemye çalış.Bende anasayfada db den gelen ürün olmadığı için sonucu göremiyorum.  
 12.Ders 335 te bütün işlemleri yaptım,ancak gönderdiğim mesaj db ye düşmüyor.Bir bak bakalım.
 13.Ders 336 da 2-4 dk'ları aasındaki işlemleri yapmadım.
+14.Ders 340 da 15. dakaya odaklan.  ProductController.cs>product.Description = string.Empty;//Ders 315'te ürünler sayfası boş geliyordu.Bu sorunnu gider.Giderince kontrol et.Ürnler>düzenle>Açıklama kısmı dolu gelecek bu durumda.O zaman dene işe yararsa bu satırı kaldır.
 
 
 
