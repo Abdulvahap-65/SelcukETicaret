@@ -116,6 +116,7 @@
           <Property Name="AddedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="Category_Id" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <Association Name="FK_Addresses_Members">
           <End Role="Members" Type="Self.Members" Multiplicity="1" />
@@ -368,6 +369,7 @@
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Products" FromRole="Products" ToRole="Comments" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Products" FromRole="Products" ToRole="OrderDetails" />
           <NavigationProperty Name="Categories" Relationship="SelcukETicaretDBModel.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Comments_Products">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
@@ -691,6 +693,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="SelcukETicaretDBModel.Products">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

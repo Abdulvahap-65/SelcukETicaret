@@ -13,19 +13,20 @@ namespace SelcukETicaret.Controllers
         public ActionResult i()
         {
             if (IsLogon() == false) return RedirectToAction("index", "i");
-            else if (((int)(CurentUser().MemberType))<4)
+            else if (((int)(CurentUser().MemberType)) < 4)
             {
                 return RedirectToAction("index", "i");
             }
-            var products = context.Products.ToList();
+            var products = context.Products.Where(x=>x.IsDeleted==false || x.IsDeleted==null).ToList();
             return View(products);
         }
         public ActionResult Edit(int id)
         {
-            var product = context.Products.FirstOrDefault(x=>x.Id==id);
-            var categories = context.Categories.Select(x => new SelectListItem() {
-Text=x.Name,
-Value=x.Id.ToString()
+            var product = context.Products.FirstOrDefault(x => x.Id == id);
+            var categories = context.Categories.Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
             }).ToList();
             ViewBag.Categories = categories;
             return View(product);
@@ -48,7 +49,7 @@ Value=x.Id.ToString()
                     productImagePath = filePath;
                 }
             }
-            if (product.Id>0)
+            if (product.Id > 0)
             {
                 var dbProduct = context.Products.FirstOrDefault(x => x.Id == product.Id);
                 dbProduct.Category_Id = product.Category_Id;
@@ -58,7 +59,8 @@ Value=x.Id.ToString()
                 dbProduct.Name = product.Name;
                 dbProduct.Price = product.Price;
                 dbProduct.UnitsInStock = product.UnitsInStock;
-                if (string.IsNullOrEmpty(productImagePath)==false)
+                dbProduct.IsDeleted = false;
+                if (string.IsNullOrEmpty(productImagePath) == false)
                 {
                     dbProduct.ProductImageName = productImagePath;
                 }
@@ -66,10 +68,18 @@ Value=x.Id.ToString()
             else
             {
                 product.AddedDate = DateTime.Now;
+                product.IsDeleted = false;
                 product.ProductImageName = productImagePath;
                 context.Entry(product).State = System.Data.Entity.EntityState.Added;
             }
-          
+
+            context.SaveChanges();
+            return RedirectToAction("i");
+        }
+        public ActionResult Delete(int id)
+        {
+            var pro = context.Products.FirstOrDefault(x => x.Id == id);
+            pro.IsDeleted = true;
             context.SaveChanges();
             return RedirectToAction("i");
         }
