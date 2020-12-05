@@ -22,6 +22,7 @@ namespace SelcukETicaret.Controllers
         }
         public ActionResult Edit(int id=0)
         {
+            if (IsLogon() == false) return RedirectToAction("index", "i");
             var product = context.Products.FirstOrDefault(x => x.Id == id);
             var categories = context.Categories.Select(x => new SelectListItem()
             {
@@ -34,6 +35,7 @@ namespace SelcukETicaret.Controllers
         [HttpPost]
         public ActionResult Edit(DB.Products product)
         {
+            if (IsLogon() == false) return RedirectToAction("index", "i");
             var productImagePath = string.Empty;
             product.Description = string.Empty;//Ders 315'te ürünler sayfası boş geliyordu.Bu sorunnu gider.Giderince kontrol et.Ürnler>düzenle>Açıklama kısmı dolu gelecek bu durumda.O zaman dene işe yararsa bu satırı kaldır.
             if (Request.Files != null && Request.Files.Count > 0)
@@ -78,6 +80,7 @@ namespace SelcukETicaret.Controllers
         }
         public ActionResult Delete(int id)
         {
+            if (IsLogon() == false) return RedirectToAction("index", "i");
             var pro = context.Products.FirstOrDefault(x => x.Id == id);
             pro.IsDeleted = true;
             context.SaveChanges();

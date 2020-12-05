@@ -35,8 +35,8 @@
             @Html.DisplayFor(modelItem => item.Categories.Name)
         </td>
         <td>
-            <a href="@Url.Action("Edit",new {id=item.Id })" class="btn btn-info">Düzenle</a>
-            <button type="button" onclick="DeleteProduct('@Url.Action("Delete",new {id=item.Id })')" class="btn btn-danger">Sil</button>
+            <a href="@Url.Action("Edit",new {id=item.Id })" class="btn btn-info btn-xs">Düzenle</a>
+            <button type="button" onclick="DeleteProduct('@Url.Action("Delete",new {id=item.Id })')" class="btn btn-danger btn-xs">Sil</button>
         </td>
     </tr>
 }
