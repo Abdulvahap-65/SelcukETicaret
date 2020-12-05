@@ -48,6 +48,7 @@ namespace SelcukETicaret.Controllers
                     cat.Parent_Id = null;
 
             }
+
             else
             {
                 category.AddedDate = DateTime.Now;
