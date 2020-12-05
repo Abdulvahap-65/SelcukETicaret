@@ -3,7 +3,7 @@
     /**/
 
     ViewBag.Title = "Siparişleriniz";
-    var currentUser =(SelcukETicaret.DB.Members) Session["LogonUser"];
+    var currentUser = (SelcukETicaret.DB.Members)Session["LogonUser"];
     var currentUserType = (int)currentUser.MemberType;
 }
 
@@ -46,7 +46,7 @@
                 </td>
                 <td>
                     <button type="button" class="btn btn-info" onclick="ShowDes('@item.OrderId')">
-                        <span class="glyphicon glyphicon-eye-open" > </span>
+                        <span class="glyphicon glyphicon-eye-open"></span>
                     </button>
                 </td>
             </tr>
@@ -102,9 +102,8 @@
 
 <script>
     function ShowDes(orderId) {
-        $("#orderStatusId").val(orderId);
         $.ajax({
-            url: "/i/GetOrderDes/"+orderId,
+            url: "/i/GetOrder/" + orderId,
             method: "GET",
             async: true,
             success: function (data) {
@@ -117,42 +116,43 @@
                 console.log("Hata", err);
             }
         });
-        $("#btnSiparisTamamla").click(function () {
-            $.ajax({
-                url: "/i/OrderCompilete/" + $("#orderStatusId").val(),
-                method: "POST",
-                data: { text: $("#orderStatusDes").val() },
-                async: true,
-                success: function (data) {
-                    location.reload();
-                },
-                error: function (err) {
-                    console.log("Hata", err);
-                }
-            });
+    }
+    $("#btnSiparisTamamla").click(function () {
+        $.ajax({
+            url: "/i/OrderCompilete/" + $("#orderStatusId").val(),
+            method: "POST",
+            data: { text: $("#orderStatusDes").val() },
+            async: true,
+            success: function (data) {
+                location.reload();
+            },
+            error: function (err) {
+                console.log("Hata", err);
+            }
         });
-        function OpenModal(orderId) {
-            $("#orderinfo").modal("show");
-            $("#orderId").val(orderId);
-        }
-        $("#btnBildir").click(function () {
-            var orderId = $("#orderId").val();
-            var orderDes = $("#orderDes").val();
-            var model = { OrderId: orderId, OrderDescription: orderDes };
-            $.ajax({
-                url: "/i/OrderNotification",
-                method: "POST",
-                data: { model: model },
-                async: true,
-                success: function (data) {
-                    alert("Ödeme Bildirimi gerçekleşti.");
-                    $("#orderinfo").modal("hide");
-                    location.reload();
-                },
-                error: function (err) {
-                    console.log("Hata", err);
-                }
-            });
+    });
+    function OpenModal(orderId) {
+        $("#orderinfo").modal("show");
+        $("#orderId").val(orderId);
+    }
+    $("#btnBildir").click(function () {
+        var orderId = $("#orderId").val();
+        var orderDes = $("#orderDes").val();
+        var model = { OrderId: orderId, OrderDescription: orderDes };
+        $.ajax({
+            url: "/i/OrderNotification",
+            method: "POST",
+            data: { model: model },
+            async: true,
+            success: function (data) {
+                alert("Ödeme Bildirimi gerçekleşti.");
+                $("#orderinfo").modal("hide");
+                location.reload();
+            },
+            error: function (err) {
+                console.log("Hata", err);
+            }
         });
+    });
 </script>
 
