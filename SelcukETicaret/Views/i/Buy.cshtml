@@ -15,6 +15,10 @@
     <thead>
         <tr>
             <!--th*4>{kolon adı}-->
+            @if (currentUserType>8)
+            {
+            <th class="text-center">Müşteri</th>
+            }
             <th class="text-center">Sipariş</th>
             <th class="text-center">Fiyat</th>
             <th class="text-center"></th>
@@ -24,32 +28,38 @@
     <tbody>
         @foreach (SelcukETicaret.Models.i.BuyModels item in Model)
         {
-            <tr>
-                <td>@item.OrderName</td>
-                <td>@item.TotelPrice ₺</td>
-                <td>
-                    @*   //Sipariş Verildi = SV
-                        //Ödeme Bildirimi = OB
-                        //Ödeme Onaylandı = OO *@
-                    @if (item.OrderStatus == "SV")
-                    {
-                        <button type="button" class="btn btn-info" onclick="OpenModal('@item.OrderId')">Ödeme Bildirimi</button>
-                    }
-                    else if (item.OrderStatus == "OB")
-                    {
-                        <span>Bildirim Yapıldı</span>
-                    }
-                    else if (item.OrderStatus == "OO")
-                    {
-                        <span>Ödeme Onaylandı</span>
-                    }
-                </td>
-                <td>
-                    <button type="button" class="btn btn-info" onclick="ShowDes('@item.OrderId')">
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                    </button>
-                </td>
-            </tr>
+        <tr>
+            @if (currentUserType > 8)
+            {
+            <td>
+                <a href="~/Account/Profil/@item.Member.Id" target="_blank">@item.Member.Name @item.Member.Surname</a>
+            </td>
+            }
+            <td>@item.OrderName</td>
+            <td>@item.TotelPrice ₺</td>
+            <td>
+                @*   //Sipariş Verildi = SV
+            //Ödeme Bildirimi = OB
+            //Ödeme Onaylandı = OO *@
+                @if (item.OrderStatus == "SV")
+                {
+                    <button type="button" class="btn btn-info" onclick="OpenModal('@item.OrderId')">Ödeme Bildirimi</button>
+                }
+                else if (item.OrderStatus == "OB")
+                {
+                    <span>Bildirim Yapıldı</span>
+                }
+                else if (item.OrderStatus == "OO")
+                {
+                    <span>Ödeme Onaylandı</span>
+                }
+            </td>
+            <td>
+                <button type="button" class="btn btn-info" onclick="ShowDes('@item.OrderId')">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </button>
+            </td>
+        </tr>
 
         }
     </tbody>

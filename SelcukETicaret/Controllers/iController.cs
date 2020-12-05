@@ -229,18 +229,28 @@ namespace SelcukETicaret.Controllers
             if (IsLogon())
             {
                 var currentId = CurrentUserId();
-                var orders = context.Orders.Where(x => x.Member_Id == currentId);
+                IQueryable<DB.Orders> orders;
+                if (((int)CurentUser().MemberType) > 8)
+                {
+                    orders = context.Orders.Where(x => x.Status == "OB");
+                }
+                else
+                {
+                    orders = context.Orders.Where(x => x.Member_Id == currentId);
+                }
+
                 List<Models.i.BuyModels> model = new List<BuyModels>();
                 foreach (var item in orders)
                 {
                     var byModel = new BuyModels();
                     byModel.TotelPrice = item.OrderDetails.Sum(y => y.Price);
-                    byModel.OrderName = string.Join(",", item.OrderDetails.Select(y => y.Products.Name + "(" + y.Quantity + ")"));
+                    byModel.OrderName = string.Join(", ", item.OrderDetails.Select(y => y.Products.Name + "(" + y.Quantity + ")"));
                     byModel.OrderStatus = item.Status;
                     byModel.OrderId = item.Id.ToString();
-
+                    byModel.Member = item.Members;
                     model.Add(byModel);
                 }
+
                 return View(model);
             }
             else
