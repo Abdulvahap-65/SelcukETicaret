@@ -209,6 +209,7 @@ namespace SelcukETicaret.Controllers
                     }
                     context.Orders.Add(order);
                     context.SaveChanges();
+                    Session["Basket"] = null;
                 }
                 catch (Exception ex)
                 {

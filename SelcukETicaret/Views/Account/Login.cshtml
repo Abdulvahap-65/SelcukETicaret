@@ -13,16 +13,15 @@
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
                     <h2>Login</h2>
+                    <small style="color:red;">@TempData["Info"]</small> <br />
                     @if (ViewBag.ReError != null && string.IsNullOrEmpty((string)ViewBag.ReError) == false)
                     {
                         <small style="color:red;">@ViewBag.ReError</small>
                     }
                     else
                     {
-                        <small>Please enter e-mail and password.</small>
+                        <small>Lütfen e-posta ve şifrenizi giriniz.</small>
                     }
-
-                    <small>Please enter e-mail and password.</small>
                 </div>
                 <div class="panel-body">
 
@@ -42,8 +41,8 @@
 
                 </div>
                 <div class="panel-footer text-right">
-                    <a href="#" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-asterisk"></span> Forgot Password
+                    <a href="~/Account/ForgotPassword" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-asterisk"></span> Şifremi Unuttum
                     </a>
                     <button type="submit" class="btn btn-success">
                         <span class="glyphicon glyphicon-log-in"></span> Login

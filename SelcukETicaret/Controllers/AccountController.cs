@@ -9,7 +9,7 @@ using SelcukETicaret.Models.Account;
 
 namespace SelcukETicaret.Controllers
 {
-    public class AccountController :BaseController
+    public class AccountController : BaseController
     {
 
         // GET: Account
@@ -177,7 +177,7 @@ namespace SelcukETicaret.Controllers
                 _address = context.Addresses.FirstOrDefault(x => x.Id == address.Id);
                 _address.ModifiedDate = DateTime.Now;
                 _address.Name = address.Name;
-                _address.AdresDescription = address.AdresDescription;           
+                _address.AdresDescription = address.AdresDescription;
             }
             context.SaveChanges();
             return RedirectToAction("Profil", "Account");
@@ -190,6 +190,31 @@ namespace SelcukETicaret.Controllers
             context.Addresses.Remove(address);
             context.SaveChanges();
             return RedirectToAction("Profil", "Account");
+        }
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(string email)
+        {
+            var member = context.Members.FirstOrDefault(x => x.Email == email);
+            if (member == null)
+            {
+                ViewBag.MyError = "Böyle bir hesap bulunamadı";
+                return View();
+            }
+            else
+            {
+                var body = "Şifreniz: " + member.Password;
+                MyMail mail = new MyMail(member.Email, "Şifremi Unuttum",body);
+                mail.SendMail();
+                TempData["Info"] = email + " Mail adresinize şifreniz gönderilmiştir.";
+                return RedirectToAction("Login");
+            }
+
         }
     }
 }
