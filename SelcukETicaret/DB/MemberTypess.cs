@@ -9,8 +9,8 @@
 
 namespace SelcukETicaret.DB
 {
+
     using System;
-    
     public enum MemberTypess : int
     {
         Customer = 0,

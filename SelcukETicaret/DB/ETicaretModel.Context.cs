@@ -32,7 +32,7 @@ namespace SelcukETicaret.DB
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Addresses> Addresses { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
-        public virtual DbSet<Members> Members { get; set; }
         public virtual DbSet<Messages> Messages { get; set; }
+        public virtual DbSet<Members> Members { get; set; }
     }
 }

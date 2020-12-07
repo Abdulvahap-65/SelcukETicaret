@@ -17,14 +17,14 @@
         <EntityTypeShape EntityType="SelcukETicaretDBModel.Addresses" Width="1.5" PointX="3.375" PointY="3.75" />
         <EntityTypeShape EntityType="SelcukETicaretDBModel.Orders" Width="1.5" PointX="3" PointY="12.625" />
         <AssociationConnector Association="SelcukETicaretDBModel.FK_OrderDetails_Orders" />
-        <EntityTypeShape EntityType="SelcukETicaretDBModel.Members" Width="1.5" PointX="0.75" PointY="6.125" />
         <EntityTypeShape EntityType="SelcukETicaretDBModel.Messages" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="SelcukETicaretDBModel.FK_MessageReplies_Messages" />
+        <EntityTypeShape EntityType="SelcukETicaretDBModel.Members" Width="1.5" PointX="0.75" PointY="6.125" />
         <AssociationConnector Association="SelcukETicaretDBModel.FK_Addresses_Members" />
         <AssociationConnector Association="SelcukETicaretDBModel.FK_Comments_Members" />
         <AssociationConnector Association="SelcukETicaretDBModel.FK_MessageReplies_Members" />
         <AssociationConnector Association="SelcukETicaretDBModel.FK_Messages_Members" />
         <AssociationConnector Association="SelcukETicaretDBModel.FK_Orders_Members" />
-        <AssociationConnector Association="SelcukETicaretDBModel.FK_MessageReplies_Messages" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

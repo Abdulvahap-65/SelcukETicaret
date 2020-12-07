@@ -333,8 +333,8 @@
           <Property Name="Member_Id" Type="Int32" Nullable="false" />
           <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Members" Relationship="SelcukETicaretDBModel.FK_MessageReplies_Members" FromRole="MessageReplies" ToRole="Members" />
           <NavigationProperty Name="Messages" Relationship="SelcukETicaretDBModel.FK_MessageReplies_Messages" FromRole="MessageReplies" ToRole="Messages" />
+          <NavigationProperty Name="Members" Relationship="SelcukETicaretDBModel.FK_MessageReplies_Members" FromRole="MessageReplies" ToRole="Members" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -424,8 +424,12 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <EntitySet Name="Members" EntityType="SelcukETicaretDBModel.Members" />
           <EntitySet Name="Messages" EntityType="SelcukETicaretDBModel.Messages" />
+          <AssociationSet Name="FK_MessageReplies_Messages" Association="SelcukETicaretDBModel.FK_MessageReplies_Messages">
+            <End Role="Messages" EntitySet="Messages" />
+            <End Role="MessageReplies" EntitySet="MessageReplies" />
+          </AssociationSet>
+          <EntitySet Name="Members" EntityType="SelcukETicaretDBModel.Members" />
           <AssociationSet Name="FK_Addresses_Members" Association="SelcukETicaretDBModel.FK_Addresses_Members">
             <End Role="Members" EntitySet="Members" />
             <End Role="Addresses" EntitySet="Addresses" />
@@ -446,11 +450,7 @@
             <End Role="Members" EntitySet="Members" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_MessageReplies_Messages" Association="SelcukETicaretDBModel.FK_MessageReplies_Messages">
-            <End Role="Messages" EntitySet="Messages" />
-            <End Role="MessageReplies" EntitySet="MessageReplies" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EnumType Name="MemberTypes">
           <Member Name="Customer" Value="0" />
           <Member Name="Editor" Value="8" />
@@ -538,6 +538,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ToMemberId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MessageReplies" Relationship="SelcukETicaretDBModel.FK_MessageReplies_Messages" FromRole="Messages" ToRole="MessageReplies" />
+          <NavigationProperty Name="Members" Relationship="SelcukETicaretDBModel.FK_Messages_Members" FromRole="Messages" ToRole="Members" />
+        </EntityType>
+        <Association Name="FK_MessageReplies_Messages">
+          <End Type="SelcukETicaretDBModel.Messages" Role="Messages" Multiplicity="1" />
+          <End Type="SelcukETicaretDBModel.MessageReplies" Role="MessageReplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Messages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MessageReplies">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="MemberTypess">
+          <Member Name="Customer" Value="0" />
+          <Member Name="Admin" Value="10" />
+          <Member Name="Editor" Value="8" />
+        </EnumType>
         <EntityType Name="Members">
           <Key>
             <PropertyRef Name="Id" />
@@ -551,25 +581,12 @@
           <Property Name="ProfileImageName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="MemberType" Type="SelcukETicaretDBModel.MemberTypess" Nullable="false" />
+          <Property Name="MemberType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Addresses" Relationship="SelcukETicaretDBModel.FK_Addresses_Members" FromRole="Members" ToRole="Addresses" />
           <NavigationProperty Name="Comments" Relationship="SelcukETicaretDBModel.FK_Comments_Members" FromRole="Members" ToRole="Comments" />
           <NavigationProperty Name="MessageReplies" Relationship="SelcukETicaretDBModel.FK_MessageReplies_Members" FromRole="Members" ToRole="MessageReplies" />
           <NavigationProperty Name="Messages" Relationship="SelcukETicaretDBModel.FK_Messages_Members" FromRole="Members" ToRole="Messages" />
           <NavigationProperty Name="Orders" Relationship="SelcukETicaretDBModel.FK_Orders_Members" FromRole="Members" ToRole="Orders" />
-        </EntityType>
-        <EntityType Name="Messages">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Subject" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
-          <Property Name="IsRead" Type="Boolean" Nullable="false" />
-          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="ToMemberId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Members" Relationship="SelcukETicaretDBModel.FK_Messages_Members" FromRole="Messages" ToRole="Members" />
-          <NavigationProperty Name="MessageReplies" Relationship="SelcukETicaretDBModel.FK_MessageReplies_Messages" FromRole="Messages" ToRole="MessageReplies" />
         </EntityType>
         <Association Name="FK_Addresses_Members">
           <End Type="SelcukETicaretDBModel.Members" Role="Members" Multiplicity="1" />
@@ -631,24 +648,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MessageReplies_Messages">
-          <End Type="SelcukETicaretDBModel.Messages" Role="Messages" Multiplicity="1" />
-          <End Type="SelcukETicaretDBModel.MessageReplies" Role="MessageReplies" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Messages">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MessageReplies">
-              <PropertyRef Name="MessageId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EnumType Name="MemberTypess">
-          <Member Name="Customer" Value="0" />
-          <Member Name="Admin" Value="10" />
-          <Member Name="Editor" Value="8" />
-        </EnumType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -749,6 +749,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="SelcukETicaretDBModel.Messages">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="ToMemberId" ColumnName="ToMemberId" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Members">
             <EntityTypeMapping TypeName="SelcukETicaretDBModel.Members">
               <MappingFragment StoreEntitySet="Members">
@@ -761,18 +773,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Messages">
-            <EntityTypeMapping TypeName="SelcukETicaretDBModel.Messages">
-              <MappingFragment StoreEntitySet="Messages">
-                <ScalarProperty Name="ToMemberId" ColumnName="ToMemberId" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

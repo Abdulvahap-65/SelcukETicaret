@@ -21,6 +21,7 @@ namespace SelcukETicaret.Controllers
         [HttpPost]
         public ActionResult Register(Models.Account.RegisterModels user)
         {
+
             try
             {
                 if (user.rePassword != user.Member.Password)
@@ -31,7 +32,7 @@ namespace SelcukETicaret.Controllers
                 {
                     throw new Exception("Zaten bu e-posta adresi kayıtlıdır.");
                 }
-                user.Member.MemberType = DB.MemberTypess.Customer;
+                user.Member.MemberType = (int)DB.MemberTypess.Customer;
                 user.Member.AddedDate = DateTime.Now;
                 context.Members.Add(user.Member);
                 context.SaveChanges();
