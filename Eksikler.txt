@@ -13,7 +13,7 @@
 13.Ders 336 da 2-4 dk'ları aasındaki işlemleri yapmadım.
 14.Ders 340 da 15. dakaya odaklan.  ProductController.cs>product.Description = string.Empty;//Ders 315'te ürünler sayfası boş geliyordu.Bu sorunnu gider.Giderince kontrol et.Ürnler>düzenle>Açıklama kısmı dolu gelecek bu durumda.O zaman dene işe yararsa bu satırı kaldır.
 15.Ders 349 da sipariş onaylamda admin sepete ekle yapıyor.sepette satın alma yapmaya çalışıyor ancak satın alma yapılmıyor ve sipariş sayfasında listelenmiyor.Fakat editör bunları yapabiliyor ve sepete ekle kısmı satın alma işlemi yapıldıktan sonra da dolu gözüküyor.Ayrıca adminin sepete eklediği ürünler editörün sepetinde de görünüyor(Bunun tersi de doğru).
-16.351. SMTP Onayı İle Mail Gönderemiyorum.
+16.352.  ProductItem.cshtml de <h3 class="ProductNameStyle">@Model.Name</h3>  satırımda class="ProductNameStyle" classı çalışmıyor(ders 352).
 
 
 

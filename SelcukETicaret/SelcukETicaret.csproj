@@ -119,6 +119,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\300x150.png" />
     <Content Include="images\account.png" />
     <Content Include="images\account64.png" />
     <Content Include="images\upload\Abdulvahap Selcuk.jpg" />
@@ -161,7 +162,7 @@
     <Content Include="Template\Content\bootstrap.min.css" />
     <Content Include="Template\Content\font-awesome.css" />
     <Content Include="Template\Content\font-awesome.min.css" />
-    <Content Include="Template\Content\site.css" />
+    <Content Include="Template\Content\Site.css" />
     <Content Include="Template\fonts\fontawesome-webfont.svg" />
     <Content Include="Template\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Template\ForgotPassword.html" />
