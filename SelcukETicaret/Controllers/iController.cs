@@ -21,8 +21,13 @@ namespace SelcukETicaret.Controllers
             DB.Categories category = null;
             if (id > 0)
             {
-                products = products.Where(x => x.Category_Id == id);
                 category = context.Categories.FirstOrDefault(x => x.Id == id);
+                var allCategories = GetChildCategories(category);
+                allCategories.Add(category);
+                var catIntList = allCategories.Select(x => x.Id).ToList();
+                //Select*from product where Ctegory_Id in(catIntList)
+                products = products.Where(x => catIntList.Contains(x.Category_Id));
+               
             }
             var viewModel = new Models.i.IndexModel()
             {

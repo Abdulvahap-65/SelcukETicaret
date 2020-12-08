@@ -13,11 +13,9 @@ namespace SelcukETicaret.Filter
         {
 
         }
-       //<summary>
-
-        //verilen numara ve üzeri kontrol yapar.
-       //</summary>
-       //<param name="_memberType">yetki numarası</param>
+        /// verilen numara ve üzeri kontrol yapar.
+        /// </summary>
+        /// <param name="_memberType">yetki numarası</param>
         public MyAuthorizationAttribute(int _memberType)
         {
             this.ActionMemberType = _memberType;

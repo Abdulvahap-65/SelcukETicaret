@@ -33,6 +33,24 @@ namespace SelcukETicaret.Controllers
             else
                 return true;
         }
+
+        /// <summary>
+        /// Tüm alt kategorileri getirir.
+        /// </summary>
+        /// <param name="cat">Hangi kategorinin alt kategorilerini getirsin?</param>
+        /// <returns></returns>
+        protected List<Categories> GetChildCategories(Categories cat)
+        {
+            var result = new List<Categories>();
+            result.AddRange(cat.Categories1);
+            foreach (var item in cat.Categories1)
+            {
+                var list = GetChildCategories(item);
+                result.AddRange(list);
+            }
+            return result;
+
+        }
     }
 }
 
