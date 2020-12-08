@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SelcukETicaret.Models;
-
+using SelcukETicaret.Filter;
 
 namespace SelcukETicaret.Controllers
 {
@@ -46,6 +46,7 @@ namespace SelcukETicaret.Controllers
             return View(model);
         }
         [HttpPost]
+        [MyAuthorization]
         public ActionResult Product(DB.Comments comment)
         {
             try
@@ -162,6 +163,7 @@ namespace SelcukETicaret.Controllers
         }
 
         [HttpPost]
+        [MyAuthorization]
         public ActionResult Buy(string Address)
         {
             if (IsLogon())
@@ -225,6 +227,7 @@ namespace SelcukETicaret.Controllers
         }
 
         [HttpGet]
+        [MyAuthorization]
         public ActionResult Buy()
         {
             if (IsLogon())
@@ -262,6 +265,7 @@ namespace SelcukETicaret.Controllers
         }
 
         [HttpPost]
+        [MyAuthorization]
         public JsonResult OrderNotification(OrderNotificationModel model)
         {
             if (string.IsNullOrEmpty(model.OrderId) == false)
@@ -296,7 +300,7 @@ namespace SelcukETicaret.Controllers
 
         }
         [HttpPost]
-     
+        [MyAuthorization]
         public JsonResult OrderCompilete(string id, string text)
         {
             var guid = new Guid(id);

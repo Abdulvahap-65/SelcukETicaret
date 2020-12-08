@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SelcukETicaret.Filter;
 using SelcukETicaret.Models.Account;
 
 
@@ -104,6 +105,7 @@ namespace SelcukETicaret.Controllers
             return View(model);
         }
         [HttpGet]
+        [MyAuthorization]
         public ActionResult ProfilEdit()
         {
             int id = base.CurrentUserId();
@@ -117,6 +119,7 @@ namespace SelcukETicaret.Controllers
         }
 
         [HttpPost]
+        [MyAuthorization]
         public ActionResult ProfilEdit(ProfilModels model)
         {
 
@@ -162,6 +165,7 @@ namespace SelcukETicaret.Controllers
             }
         }
         [HttpPost]
+        [MyAuthorization]
         public ActionResult Address(DB.Addresses address)
         {
             DB.Addresses _address = null;
@@ -184,6 +188,7 @@ namespace SelcukETicaret.Controllers
             return RedirectToAction("Profil", "Account");
         }
         [HttpGet]
+        [MyAuthorization]
         public ActionResult RemoveAddress(string id)
         {
             var guid = new Guid(id);

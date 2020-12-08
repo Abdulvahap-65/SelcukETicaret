@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SelcukETicaret.Filter;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,22 +8,17 @@ using System.Web.Mvc;
 
 namespace SelcukETicaret.Controllers
 {
+    [MyAuthorization(_memberType: 8)]
     public class ProductController : BaseController
     {
         // GET: Product
         public ActionResult i()
         {
-            if (IsLogon() == false) return RedirectToAction("index", "i");
-            else if (((int)(CurentUser().MemberType)) < 4)
-            {
-                return RedirectToAction("index", "i");
-            }
             var products = context.Products.Where(x=>x.IsDeleted==false || x.IsDeleted==null).ToList();
             return View(products.OrderByDescending(x=>x.AddedDate).ToList());
         }
         public ActionResult Edit(int id=0)
         {
-            if (IsLogon() == false) return RedirectToAction("index", "i");
             var product = context.Products.FirstOrDefault(x => x.Id == id);
             var categories = context.Categories.Select(x => new SelectListItem()
             {
@@ -35,7 +31,6 @@ namespace SelcukETicaret.Controllers
         [HttpPost]
         public ActionResult Edit(DB.Products product)
         {
-            if (IsLogon() == false) return RedirectToAction("index", "i");
             var productImagePath = string.Empty;
             product.Description = string.Empty;//Ders 315'te ürünler sayfası boş geliyordu.Bu sorunnu gider.Giderince kontrol et.Ürnler>düzenle>Açıklama kısmı dolu gelecek bu durumda.O zaman dene işe yararsa bu satırı kaldır.
             if (Request.Files != null && Request.Files.Count > 0)
@@ -80,7 +75,6 @@ namespace SelcukETicaret.Controllers
         }
         public ActionResult Delete(int id)
         {
-            if (IsLogon() == false) return RedirectToAction("index", "i");
             var pro = context.Products.FirstOrDefault(x => x.Id == id);
             pro.IsDeleted = true;
             context.SaveChanges();

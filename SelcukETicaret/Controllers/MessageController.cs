@@ -1,4 +1,5 @@
-﻿using SelcukETicaret.Models.Message;
+﻿using SelcukETicaret.Filter;
+using SelcukETicaret.Models.Message;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace SelcukETicaret.Controllers
 {
+    [MyAuthorization]
     public class MessageController : BaseController
     {
         // GET: Message
