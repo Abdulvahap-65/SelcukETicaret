@@ -95,6 +95,10 @@
             <div class="modal-body">
                 <input type="hidden" id="orderStatusId" value="" />
                 <textarea id="orderStatusDes" rows="5" class="form-control" @(currentUserType < 4 ? "readonly=\"readonly\"" : "")></textarea>
+                <span>
+                    <strong>Adres</strong>
+                    <p id="orderAddress"></p>
+                </span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>

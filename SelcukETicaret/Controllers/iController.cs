@@ -17,7 +17,7 @@ namespace SelcukETicaret.Controllers
         [HttpGet]
         public ActionResult Index(int id = 0)
         {
-            IQueryable<DB.Products> products = context.Products.OrderByDescending(x=>x.AddedDate).Where(x => x.IsDeleted == false || x.IsDeleted == null);
+            IQueryable<DB.Products> products = context.Products.OrderByDescending(x => x.AddedDate).Where(x => x.IsDeleted == false || x.IsDeleted == null);
             DB.Categories category = null;
             if (id > 0)
             {
@@ -27,7 +27,7 @@ namespace SelcukETicaret.Controllers
                 var catIntList = allCategories.Select(x => x.Id).ToList();
                 //Select*from product where Ctegory_Id in(catIntList)
                 products = products.Where(x => catIntList.Contains(x.Category_Id));
-               
+
             }
             var viewModel = new Models.i.IndexModel()
             {
@@ -302,21 +302,21 @@ namespace SelcukETicaret.Controllers
                 Description = order.Description,
                 Address = order.Address
             }, JsonRequestBehavior.AllowGet);
-
         }
+
         [HttpPost]
-        [MyAuthorization]
-        public JsonResult OrderCompilete(string id, string text)
-        {
-            var guid = new Guid(id);
-            var order = context.Orders.FirstOrDefault(x => x.Id == guid);
-            order.Description = text;
-            order.Status = "OO";
-            context.SaveChanges();
-            return Json(true, JsonRequestBehavior.AllowGet);
-        }
-
+    [MyAuthorization]
+    public JsonResult OrderCompilete(string id, string text)
+    {
+        var guid = new Guid(id);
+        var order = context.Orders.FirstOrDefault(x => x.Id == guid);
+        order.Description = text;
+        order.Status = "OO";
+        context.SaveChanges();
+        return Json(true, JsonRequestBehavior.AllowGet);
     }
+
+}
 
 }
 
